@@ -1,0 +1,22 @@
+name: Check schema
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install cargo script
+      run: cargo install cargo-script
+    - name: Check
+      run: cargo script -- check
