@@ -1,0 +1,71 @@
+#!/usr/bin/env run-cargo-script
+//! Script that checks that `.ron` schema is formatted properly
+//! 
+//! ```cargo
+//! [dependencies]
+//! serde = { version = "1.0.114", features = ["derive"] }
+//! ron = "0.6.0"
+//! ```
+
+use std::{fs::File, collections::HashMap, io::Read};
+
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
+struct Schema {
+    api_version: ApiVersion,
+    methods: Vec<Method>,
+    tg_categoryes: HashMap<String, String>,
+}
+
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
+struct ApiVersion {
+    ver: String,
+    date: String,
+}
+
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
+struct Method {
+    names: (String, String, String),
+    return_ty: Type,
+    doc: Doc, 
+    tg_doc: String,
+    tg_category: String,
+    #[serde(default)]
+    notes: Vec<Doc>,
+    params: Vec<Param>,
+    // todo: sublings
+}
+
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
+struct Doc {
+    md: String,
+    #[serde(default)]
+    md_links: HashMap<String, String>,
+}
+
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
+struct Param {
+    name: String,
+    ty: Type,
+    descr: Doc,
+}
+
+#[allow(non_camel_case_types)]
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
+enum Type {
+    True,
+    u8,
+    u32, 
+    i64, 
+    bool,
+    String,
+    Option(Box<Type>),
+    ArrayOf(Box<Type>),
+    RawTy(String),
+}
+
+fn main() {
+    let mut file = File::open("./schema.ron").unwrap();
+    let mut str = String::new();
+    file.read_to_string(&mut str).unwrap();
+    dbg!(ron::from_str::<Schema>(&str).unwrap());
+}
