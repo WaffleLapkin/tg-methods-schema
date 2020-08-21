@@ -407,6 +407,477 @@ Schema(
                 ),
             ],
         ),
+        Method(
+            names: ("sendDocument", "SendDocument", "send_document"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to send general files. On success, the sent [Message] is returned. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future.",
+                md_links: { "Message": "https://core.telegram.org/bots/api#message" },
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#senddocument",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)"),
+                ),
+                Param(
+                    name: "document",
+                    ty: RawTy("InputFile"),
+                    descr: Doc(
+                        md: "File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »]",
+                        md_links: {"More info on Sending Files »": "https://core.telegram.org/bots/api#sending-files"},
+                    ),
+                ),
+                Param(
+                    name: "thumb",
+                    ty: Option(RawTy("InputFile")),
+                    descr: Doc(
+                        md: "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. [More info on Sending Files »]",
+                        md_links: {"More info on Sending Files »": "https://core.telegram.org/bots/api#sending-files"},
+                    ),
+                ),
+                Param(
+                    name: "caption",
+                    ty: String,
+                    descr: Doc(md: "Document caption (may also be used when resending documents by _file\\_id_), 0-1024 characters after entities parsing"),
+                ),
+                Param(
+                    name: "parse_mode",
+                    ty: Option(RawTy("ParseMode")),
+                    descr: Doc(
+                        md: "Mode for parsing entities in the audio caption. See [formatting options] for more details.",
+                        md_links: {"formatting options": "https://core.telegram.org/bots/api#formatting-options"},
+                    ),
+                ),
+                Param(
+                    name: "disable_notification",
+                    ty: Option(bool), 
+                    descr: Doc(
+                        md: "Sends the message [silently]. Users will receive a notification with no sound.",
+                        md_links: {"silently": "https://telegram.org/blog/channels-2-0#silent-messages"},
+                    )
+                ),
+                Param(
+                    name: "reply_to_message_id",
+                    ty: Option(i64),
+                    descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "reply_markup",
+                    ty: Option(RawTy("ReplyMarkup")),
+                    descr: Doc(md: "Additional interface options. A JSON-serialized object for an [inline keyboard], [custom reply keyboard], instructions to remove reply keyboard or to force a reply from the user."),
+                    md_links: {
+                        "inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating",
+                        "custom reply keyboard": "https://core.telegram.org/bots#keyboards",
+                    }
+                ),
+            ],
+        ),
+        Method(
+            names: ("sendVideo", "SendVideo", "send_video"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as [Document]). On success, the sent [Message] is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future.",
+                md_links: {
+                    "Document": "https://core.telegram.org/bots/api#document",
+                    "Message": "https://core.telegram.org/bots/api#message",
+                },
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#sendvideo",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)"),
+                ),
+                Param(
+                    name: "video",
+                    ty: RawTy("InputFile"),
+                    descr: Doc(
+                        md: "Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. [More info on Sending Files »]",
+                        md_links: {"More info on Sending Files »": "https://core.telegram.org/bots/api#sending-files"},
+                    ),
+                ),
+                Param(
+                    name: "duration",
+                    ty: Option(u32),
+                    descr: Doc(md: "Duration of the video in seconds"),
+                ),
+                Param(
+                    name: "width",
+                    ty: Option(u32),
+                    descr: Doc(md: "Video width"),
+                ),
+                Param(
+                    name: "height",
+                    ty: Option(u32),
+                    descr: Doc(md: "Video height"),
+                ),
+                Param(
+                    name: "thumb",
+                    ty: Option(RawTy("InputFile")),
+                    descr: Doc(
+                        md: "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. [More info on Sending Files »]",
+                        md_links: {"More info on Sending Files »": "https://core.telegram.org/bots/api#sending-files"},
+                    ),
+                ),
+                Param(
+                    name: "caption",
+                    ty: String,
+                    descr: Doc(md: "Video caption (may also be used when resending videos by _file\\_id_), 0-1024 characters after entities parsing"),
+                ),
+                Param(
+                    name: "parse_mode",
+                    ty: Option(RawTy("ParseMode")),
+                    descr: Doc(
+                        md: "Mode for parsing entities in the video caption. See [formatting options] for more details.",
+                        md_links: {"formatting options": "https://core.telegram.org/bots/api#formatting-options"},
+                    ),
+                ),
+                Param(
+                    name: "supports_streaming",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the uploaded video is suitable for streaming"),
+                ),
+                Param(
+                    name: "disable_notification",
+                    ty: Option(bool), 
+                    descr: Doc(
+                        md: "Sends the message [silently]. Users will receive a notification with no sound.",
+                        md_links: {"silently": "https://telegram.org/blog/channels-2-0#silent-messages"},
+                    )
+                ),
+                Param(
+                    name: "reply_to_message_id",
+                    ty: Option(i64),
+                    descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "reply_markup",
+                    ty: Option(RawTy("ReplyMarkup")),
+                    descr: Doc(md: "Additional interface options. A JSON-serialized object for an [inline keyboard], [custom reply keyboard], instructions to remove reply keyboard or to force a reply from the user."),
+                    md_links: {
+                        "inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating",
+                        "custom reply keyboard": "https://core.telegram.org/bots#keyboards",
+                    }
+                ),
+            ],
+        ),
+        Method(
+            names: ("sendAnimation", "SendAnimation", "send_animation"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound). On success, the sent [Message] is returned. Bots can currently send animation files of up to 50 MB in size, this limit may be changed in the future.",
+                md_links: { "Message": "https://core.telegram.org/bots/api#message" },
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#sendanimation",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)"),
+                ),
+                Param(
+                    name: "animation",
+                    ty: RawTy("InputFile"),
+                    descr: Doc(
+                        md: "Animation to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. [More info on Sending Files »]",
+                        md_links: {"More info on Sending Files »": "https://core.telegram.org/bots/api#sending-files"},
+                    ),
+                ),
+                Param(
+                    name: "duration",
+                    ty: Option(u32),
+                    descr: Doc(md: "Duration of the animation in seconds"),
+                ),
+                Param(
+                    name: "width",
+                    ty: Option(u32),
+                    descr: Doc(md: "Animation width"),
+                ),
+                Param(
+                    name: "height",
+                    ty: Option(u32),
+                    descr: Doc(md: "Animation height"),
+                ),
+                Param(
+                    name: "thumb",
+                    ty: Option(RawTy("InputFile")),
+                    descr: Doc(
+                        md: "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. [More info on Sending Files »]",
+                        md_links: {"More info on Sending Files »": "https://core.telegram.org/bots/api#sending-files"},
+                    ),
+                ),
+                Param(
+                    name: "caption",
+                    ty: String,
+                    descr: Doc(md: "Animation caption (may also be used when resending videos by _file\\_id_), 0-1024 characters after entities parsing"),
+                ),
+                Param(
+                    name: "parse_mode",
+                    ty: Option(RawTy("ParseMode")),
+                    descr: Doc(
+                        md: "Mode for parsing entities in the animation caption. See [formatting options] for more details.",
+                        md_links: {"formatting options": "https://core.telegram.org/bots/api#formatting-options"},
+                    ),
+                ),
+                Param(
+                    name: "disable_notification",
+                    ty: Option(bool), 
+                    descr: Doc(
+                        md: "Sends the message [silently]. Users will receive a notification with no sound.",
+                        md_links: {"silently": "https://telegram.org/blog/channels-2-0#silent-messages"},
+                    )
+                ),
+                Param(
+                    name: "reply_to_message_id",
+                    ty: Option(i64),
+                    descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "reply_markup",
+                    ty: Option(RawTy("ReplyMarkup")),
+                    descr: Doc(md: "Additional interface options. A JSON-serialized object for an [inline keyboard], [custom reply keyboard], instructions to remove reply keyboard or to force a reply from the user."),
+                    md_links: {
+                        "inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating",
+                        "custom reply keyboard": "https://core.telegram.org/bots#keyboards",
+                    }
+                ),
+            ],
+        ),
+        Method(
+            names: ("sendVoice", "SendVoice", "send_voice"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS (other formats may be sent as [Audio] or [Document]). On success, the sent [Message] is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.",
+                md_links: {
+                    "Audio": "https://core.telegram.org/bots/api#audio",
+                    "Document": "https://core.telegram.org/bots/api#document",
+                    "Message": "https://core.telegram.org/bots/api#message",
+                },
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#sendaudio",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)"),
+                ),
+                Param(
+                    name: "voice",
+                    ty: RawTy("InputFile"),
+                    descr: Doc(
+                        md: "Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »]",
+                        md_links: {"More info on Sending Files »": "https://core.telegram.org/bots/api#sending-files"},
+                    ),
+                ),
+                Param(
+                    name: "caption",
+                    ty: String,
+                    descr: Doc(md: "Voice message caption, 0-1024 characters after entities parsing"),
+                ),
+                Param(
+                    name: "parse_mode",
+                    ty: Option(RawTy("ParseMode")),
+                    descr: Doc(
+                        md: "Mode for parsing entities in the voice message caption. See [formatting options] for more details.",
+                        md_links: {"formatting options": "https://core.telegram.org/bots/api#formatting-options"},
+                    ),
+                ),
+                Param(
+                    name: "duration",
+                    ty: Option(u32),
+                    descr: Doc(md: "Duration of the voice message in seconds"),
+                ),
+                Param(
+                    name: "disable_notification",
+                    ty: Option(bool), 
+                    descr: Doc(
+                        md: "Sends the message [silently]. Users will receive a notification with no sound.",
+                        md_links: {"silently": "https://telegram.org/blog/channels-2-0#silent-messages"},
+                    )
+                ),
+                Param(
+                    name: "reply_to_message_id",
+                    ty: Option(i64),
+                    descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "reply_markup",
+                    ty: Option(RawTy("ReplyMarkup")),
+                    descr: Doc(md: "Additional interface options. A JSON-serialized object for an [inline keyboard], [custom reply keyboard], instructions to remove reply keyboard or to force a reply from the user."),
+                    md_links: {
+                        "inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating",
+                        "custom reply keyboard": "https://core.telegram.org/bots#keyboards",
+                    }
+                ),
+            ],
+        ),
+        Method(
+            names: ("sendVideoNote", "SendVideoNote", "send_video_note"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "As of [v.4.0], Telegram clients support rounded square mp4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent [Message] is returned.",
+                md_links: {
+                    "v.4.0": "https://core.telegram.org/bots/api#document",
+                    "Message": "https://core.telegram.org/bots/api#message",
+                },
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#sendvideonote",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)"),
+                ),
+                Param(
+                    name: "video_note",
+                    ty: RawTy("InputFile"),
+                    descr: Doc(
+                        md: "Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. [More info on Sending Files »]. Sending video notes by a URL is currently unsupported",
+                        md_links: {"More info on Sending Files »": "https://core.telegram.org/bots/api#sending-files"},
+                    ),
+                ),
+                Param(
+                    name: "duration",
+                    ty: Option(u32),
+                    descr: Doc(md: "Duration of the video in seconds"),
+                ),
+                Param(
+                    name: "length",
+                    ty: Option(u32),
+                    descr: Doc(md: "Video width and height, i.e. diameter of the video message"),
+                ),
+                Param(
+                    name: "thumb",
+                    ty: Option(RawTy("InputFile")),
+                    descr: Doc(
+                        md: "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. [More info on Sending Files »]",
+                        md_links: {"More info on Sending Files »": "https://core.telegram.org/bots/api#sending-files"},
+                    ),
+                ),
+                Param(
+                    name: "disable_notification",
+                    ty: Option(bool), 
+                    descr: Doc(
+                        md: "Sends the message [silently]. Users will receive a notification with no sound.",
+                        md_links: {"silently": "https://telegram.org/blog/channels-2-0#silent-messages"},
+                    )
+                ),
+                Param(
+                    name: "reply_to_message_id",
+                    ty: Option(i64),
+                    descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "reply_markup",
+                    ty: Option(RawTy("ReplyMarkup")),
+                    descr: Doc(md: "Additional interface options. A JSON-serialized object for an [inline keyboard], [custom reply keyboard], instructions to remove reply keyboard or to force a reply from the user."),
+                    md_links: {
+                        "inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating",
+                        "custom reply keyboard": "https://core.telegram.org/bots#keyboards",
+                    }
+                ),
+            ],
+        ),
+        Method(
+            names: ("sendMediaGroup", "SendMediaGroup", "send_media_group"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to send a group of photos or videos as an album. On success, an array of the sent [Messages] is returned.",
+                md_links: {"Message": "https://core.telegram.org/bots/api#message"},
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#sendmediagroup",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "media",
+                    ty: ArrayOf(RawTy("InputMedia")), // TODO: InputMediaPhoto | InputMediaVideo
+                    descr: Doc(md: "A JSON-serialized array describing photos and videos to be sent, must include 2-10 items")
+                ),
+                Param(
+                    name: "disable_notification",
+                    ty: Option(bool), 
+                    descr: Doc(
+                        md: "Sends the message [silently]. Users will receive a notification with no sound.",
+                        md_links: {"silently": "https://telegram.org/blog/channels-2-0#silent-messages"}
+                    )
+                ),
+                Param(
+                    name: "reply_to_message_id",
+                    ty: Option(i64),
+                    descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+            ],
+        ),
+        Method(
+            names: ("sendLocation", "SendLocation", "send_location"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to send point on the map. On success, the sent [Message] is returned.",
+                md_links: {"Message": "https://core.telegram.org/bots/api#sendlocation"},
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#sendmessage",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)"),
+                ),
+                Param(
+                    name: "latitude",
+                    ty: f64,
+                    descr: Doc(md: "Latitude of the location"),
+                ),
+                Param(
+                    name: "longitude",
+                    ty: f64,
+                    descr: Doc(md: "Longitude of the location"),
+                ),
+                Param(
+                    name: "live_period",
+                    ty: u32,
+                    descr: Doc(
+                        md: "Period in seconds for which the location will be updated (see [Live Locations], should be between 60 and 86400.",
+                        md_links: {"Live Locations": "https://telegram.org/blog/live-locations"}
+                    )
+                ),
+                Param(
+                    name: "disable_notification",
+                    ty: Option(bool), 
+                    descr: Doc(
+                        md: "Sends the message [silently]. Users will receive a notification with no sound.",
+                        md_links: {"silently": "https://telegram.org/blog/channels-2-0#silent-messages"}
+                    )
+                ),
+                Param(
+                    name: "reply_to_message_id",
+                    ty: Option(i64),
+                    descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "reply_markup",
+                    ty: Option(RawTy("ReplyMarkup")),
+                    descr: Doc(md: "Additional interface options. A JSON-serialized object for an [inline keyboard], [custom reply keyboard], instructions to remove reply keyboard or to force a reply from the user."),
+                    md_links: {
+                        "inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating",
+                        "custom reply keyboard": "https://core.telegram.org/bots#keyboards",
+                    }
+                ),
+            ],
+        ),
     ],
     tg_categoryes: {
         "Getting updates": "https://core.telegram.org/bots/api#getting-updates",
