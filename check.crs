@@ -32,7 +32,8 @@ struct Method {
     #[serde(default)]
     notes: Vec<Doc>,
     params: Vec<Param>,
-    // todo: sublings
+    #[serde(default)]
+    sibling: Option<String>,
 }
 
 #[derive(Debug, serde::Serialize, serde::Deserialize)]

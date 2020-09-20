@@ -826,9 +826,9 @@ Schema(
             return_ty: RawTy("Message"),
             doc: Doc(
                 md: "Use this method to send point on the map. On success, the sent [Message] is returned.",
-                md_links: {"Message": "https://core.telegram.org/bots/api#sendlocation"},
+                md_links: {"Message": "https://core.telegram.org/bots/api#message"},
             ),
-            tg_doc: "https://core.telegram.org/bots/api#sendmessage",
+            tg_doc: "https://core.telegram.org/bots/api#sendlocation",
             tg_category: "Available methods",
             params: [
                 Param(
@@ -877,6 +877,168 @@ Schema(
                     }
                 ),
             ],
+        ),
+
+        Method(
+            names: ("editMessageLiveLocation", "EditMessageLiveLocation", "edit_message_live_location"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to [stopMessageLiveLocation]. On success, the edited Message is returned.",
+                md_links: {"stopMessageLiveLocation": "https://core.telegram.org/bots/api#stopmessagelivelocation"},
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#editmessagelivelocation",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "message_id",
+                    ty: i64, 
+                    descr: Doc(md: "Identifier of the message to edit")
+                ),
+                Param(
+                    name: "latitude",
+                    ty: f64,
+                    descr: Doc(md: "Latitude of new location"),
+                ),
+                Param(
+                    name: "longitude",
+                    ty: f64,
+                    descr: Doc(md: "Longitude of new location"),
+                ),
+                Param(
+                    name: "reply_markup",
+                    ty: Option(RawTy("ReplyMarkup")),
+                    descr: Doc(md: "Additional interface options. A JSON-serialized object for an [inline keyboard], [custom reply keyboard], instructions to remove reply keyboard or to force a reply from the user."),
+                    md_links: {
+                        "inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating",
+                        "custom reply keyboard": "https://core.telegram.org/bots#keyboards",
+                    }
+                ),
+            ],
+            sibling: Some("editMessageLiveLocationInline"),
+        ),
+        Method(
+            names: ("editMessageLiveLocationInline", "EditMessageLiveLocationInline", "edit_message_live_location_inline"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to [stopMessageLiveLocation]. On success, True is returned.",
+                md_links: {"stopMessageLiveLocation": "https://core.telegram.org/bots/api#stopmessagelivelocation"},
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#editmessagelivelocation",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "inline_message_id",
+                    ty: String,
+                    descr: Doc(md: "Identifier of the inline message"),
+                ),
+                Param(
+                    name: "latitude",
+                    ty: f64,
+                    descr: Doc(md: "Latitude of new location"),
+                ),
+                Param(
+                    name: "longitude",
+                    ty: f64,
+                    descr: Doc(md: "Longitude of new location"),
+                ),
+                Param(
+                    name: "reply_markup",
+                    ty: Option(RawTy("ReplyMarkup")),
+                    descr: Doc(md: "Additional interface options. A JSON-serialized object for an [inline keyboard], [custom reply keyboard], instructions to remove reply keyboard or to force a reply from the user."),
+                    md_links: {
+                        "inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating",
+                        "custom reply keyboard": "https://core.telegram.org/bots#keyboards",
+                    }
+                ),
+            ],
+            sibling: Some("editMessageLiveLocation"),
+        ),
+        Method(
+            names: ("stopMessageLiveLocation", "StopMessageLiveLocation", "stop_message_live_location"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to [stopMessageLiveLocation]. On success, the edited Message is returned.",
+                md_links: {"stopMessageLiveLocation": "https://core.telegram.org/bots/api#stopmessagelivelocation"},
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#editmessagelivelocation",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "message_id",
+                    ty: i64, 
+                    descr: Doc(md: "Identifier of the message to edit")
+                ),
+                Param(
+                    name: "latitude",
+                    ty: f64,
+                    descr: Doc(md: "Latitude of new location"),
+                ),
+                Param(
+                    name: "longitude",
+                    ty: f64,
+                    descr: Doc(md: "Longitude of new location"),
+                ),
+                Param(
+                    name: "reply_markup",
+                    ty: Option(RawTy("ReplyMarkup")),
+                    descr: Doc(md: "Additional interface options. A JSON-serialized object for an [inline keyboard], [custom reply keyboard], instructions to remove reply keyboard or to force a reply from the user."),
+                    md_links: {
+                        "inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating",
+                        "custom reply keyboard": "https://core.telegram.org/bots#keyboards",
+                    }
+                ),
+            ],
+            sibling: Some("stopMessageLiveLocationInline"),
+        ),
+        Method(
+            names: ("stopMessageLiveLocationInline", "StopMessageLiveLocationInline", "stop_message_live_location_inline"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to [stopMessageLiveLocation]. On success, True is returned.",
+                md_links: {
+                    "Message": "https://core.telegram.org/bots/api#message",
+                    "stopMessageLiveLocation": "https://core.telegram.org/bots/api#stopmessagelivelocation",
+                },
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#editmessagelivelocation",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "inline_message_id",
+                    ty: String,
+                    descr: Doc(md: "Identifier of the inline message"),
+                ),
+                Param(
+                    name: "latitude",
+                    ty: f64,
+                    descr: Doc(md: "Latitude of new location"),
+                ),
+                Param(
+                    name: "longitude",
+                    ty: f64,
+                    descr: Doc(md: "Longitude of new location"),
+                ),
+                Param(
+                    name: "reply_markup",
+                    ty: Option(RawTy("ReplyMarkup")),
+                    descr: Doc(md: "Additional interface options. A JSON-serialized object for an [inline keyboard], [custom reply keyboard], instructions to remove reply keyboard or to force a reply from the user."),
+                    md_links: {
+                        "inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating",
+                        "custom reply keyboard": "https://core.telegram.org/bots#keyboards",
+                    }
+                ),
+            ],
+            sibling: Some("stopMessageLiveLocation"),
         ),
     ],
     tg_categoryes: {
