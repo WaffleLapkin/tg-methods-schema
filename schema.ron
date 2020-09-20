@@ -22,6 +22,8 @@
 //!     documentation written as `InlineKeyboardMarkup or ReplyKeyboardMarkup or 
 //!     ReplyKeyboardRemove or ForceReply`
 //!   + `ParseMode` type of `parse_mode` params
+//!   + `PollType` type of poll, either “quiz” or “regular”
+//!   + `DiceEmoji` emoji that can be used in `sendDice` one of “🎲”, “🎯”, or “🏀”
 //! * Integers represented with more strict (when possible) types, e.g.:
 //!   `u8` (unsigned, 8-bit integer), `u32` (unsigned, 32-bit), 
 //!   `i64` (signed, 64-bit), etc
@@ -878,7 +880,6 @@ Schema(
                 ),
             ],
         ),
-
         Method(
             names: ("editMessageLiveLocation", "EditMessageLiveLocation", "edit_message_live_location"),
             return_ty: RawTy("Message"),
@@ -963,7 +964,10 @@ Schema(
             return_ty: RawTy("Message"),
             doc: Doc(
                 md: "Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to [stopMessageLiveLocation]. On success, the edited Message is returned.",
-                md_links: {"stopMessageLiveLocation": "https://core.telegram.org/bots/api#stopmessagelivelocation"},
+                md_links: {
+                    "Message": "https://core.telegram.org/bots/api#message",
+                    "stopMessageLiveLocation": "https://core.telegram.org/bots/api#stopmessagelivelocation",
+                },
             ),
             tg_doc: "https://core.telegram.org/bots/api#editmessagelivelocation",
             tg_category: "Available methods",
@@ -1005,10 +1009,7 @@ Schema(
             return_ty: RawTy("Message"),
             doc: Doc(
                 md: "Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to [stopMessageLiveLocation]. On success, True is returned.",
-                md_links: {
-                    "Message": "https://core.telegram.org/bots/api#message",
-                    "stopMessageLiveLocation": "https://core.telegram.org/bots/api#stopmessagelivelocation",
-                },
+                md_links: {"stopMessageLiveLocation": "https://core.telegram.org/bots/api#stopmessagelivelocation"},
             ),
             tg_doc: "https://core.telegram.org/bots/api#editmessagelivelocation",
             tg_category: "Available methods",
@@ -1040,6 +1041,324 @@ Schema(
             ],
             sibling: Some("stopMessageLiveLocation"),
         ),
+
+
+
+
+
+        Method(
+            names: ("sendVenue", "SendVenue", "send_venue"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to send information about a venue. On success, the sent [Message] is returned.",
+                md_links: {"Message": "https://core.telegram.org/bots/api#message"},
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#sendvenue",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "latitude",
+                    ty: f64,
+                    descr: Doc(md: "Latitude of new location"),
+                ),
+                Param(
+                    name: "longitude",
+                    ty: f64,
+                    descr: Doc(md: "Longitude of new location"),
+                ),
+                Param(
+                    name: "title",
+                    ty: String,
+                    descr: Doc(md: "Name of the venue")
+                ),
+                Param(
+                    name: "address",
+                    ty: String,
+                    descr: Doc(md: "Address of the venue")
+                ),
+                Param(
+                    name: "foursquare_id",
+                    ty: Option(String),
+                    descr: Doc(md: "Foursquare identifier of the venue")
+                ),
+                Param(
+                    name: "foursquare_type",
+                    ty: Option(String),
+                    descr: Doc(md: "Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)")
+                ),
+                Param(
+                    name: "disable_notification",
+                    ty: Option(bool), 
+                    descr: Doc(
+                        md: "Sends the message [silently]. Users will receive a notification with no sound.",
+                        md_links: {"silently": "https://telegram.org/blog/channels-2-0#silent-messages"}
+                    )
+                ),
+                Param(
+                    name: "reply_to_message_id",
+                    ty: Option(i64),
+                    descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "reply_markup",
+                    ty: Option(RawTy("ReplyMarkup")),
+                    descr: Doc(md: "Additional interface options. A JSON-serialized object for an [inline keyboard], [custom reply keyboard], instructions to remove reply keyboard or to force a reply from the user."),
+                    md_links: {
+                        "inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating",
+                        "custom reply keyboard": "https://core.telegram.org/bots#keyboards",
+                    }
+                ),
+            ],
+        ),
+
+        Method(
+            names: ("sendContact", "SendContact", "send_contact"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to send phone contacts. On success, the sent [Message] is returned.",
+                md_links: {"Message": "https://core.telegram.org/bots/api#message"},
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#sendcontact",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "phone_number",
+                    ty: f64,
+                    descr: Doc(md: "Contact's phone number"),
+                ),
+                Param(
+                    name: "first_name",
+                    ty: f64,
+                    descr: Doc(md: "Contact's first name"),
+                ),
+                Param(
+                    name: "last_name",
+                    ty: Option(String),
+                    descr: Doc(md: "Contact's last name")
+                ),
+                Param(
+                    name: "vcard",
+                    ty: Option(String),
+                    descr: Doc(
+                        md: "Additional data about the contact in the form of a [vCard], 0-2048 bytes",
+                        md_links: {"vCard": "https://en.wikipedia.org/wiki/VCard"}
+                    )
+                ),
+                Param(
+                    name: "disable_notification",
+                    ty: Option(bool), 
+                    descr: Doc(
+                        md: "Sends the message [silently]. Users will receive a notification with no sound.",
+                        md_links: {"silently": "https://telegram.org/blog/channels-2-0#silent-messages"}
+                    )
+                ),
+                Param(
+                    name: "reply_to_message_id",
+                    ty: Option(i64),
+                    descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "reply_markup",
+                    ty: Option(RawTy("ReplyMarkup")),
+                    descr: Doc(md: "Additional interface options. A JSON-serialized object for an [inline keyboard], [custom reply keyboard], instructions to remove reply keyboard or to force a reply from the user."),
+                    md_links: {
+                        "inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating",
+                        "custom reply keyboard": "https://core.telegram.org/bots#keyboards",
+                    }
+                ),
+            ],
+        ),
+
+        Method(
+            names: ("sendPoll", "SendPoll", "send_poll"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to send phone contacts. On success, the sent [Message] is returned.",
+                md_links: {"Message": "https://core.telegram.org/bots/api#message"},
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#sendpoll",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "question",
+                    ty: f64,
+                    descr: Doc(md: "Poll question, 1-255 characters"),
+                ),
+                Param(
+                    name: "options",
+                    ty: ArrayOf(String),
+                    descr: Doc(md: "A JSON-serialized list of answer options, 2-10 strings 1-100 characters each"),
+                ),
+                Param(
+                    name: "is_anonymous",
+                    ty: Option(bool),
+                    descr: Doc(md: "True, if the poll needs to be anonymous, defaults to True")
+                ),
+                Param(
+                    name: "type",
+                    ty: RawTy("PollType"),
+                    descr: Doc(md: "Poll type, “quiz” or “regular”, defaults to “regular”")
+                ),
+                Param(
+                    name: "allows_multiple_answers",
+                    ty: Option(bool),
+                    descr: Doc(md: "True, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to False")
+                ),
+                Param(
+                    name: "correct_option_id",
+                    ty: Option(u8),
+                    descr: Doc(md: "0-based identifier of the correct answer option, required for polls in quiz mode")
+                ),
+                Param(
+                    name: "explanation",
+                    ty: Option(String),
+                    descr: Doc(md: "Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters with at most 2 line feeds after entities parsing")
+                ),
+                Param(
+                    name: "explanation_parse_mode",
+                    ty: Option(RawTy("ParseMode")),
+                    descr: Doc(
+                        md: "Mode for parsing entities in the message text. See [formatting options] for more details.",
+                        md_links: {"formatting options": "https://core.telegram.org/bots/api#formatting-options"}
+                    )
+                ),
+                Param(
+                    name: "open_period",
+                    ty: Option(u16),
+                    descr: Doc(md: "Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date.")
+                ),
+                Param(
+                    name: "open_period",
+                    ty: Option(u64),
+                    descr: Doc(md: "Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future. Can't be used together with open_period.")
+                ),
+                Param(
+                    name: "is_closed",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass True, if the poll needs to be immediately closed. This can be useful for poll preview.")
+                ),
+                Param(
+                    name: "disable_notification",
+                    ty: Option(bool), 
+                    descr: Doc(
+                        md: "Sends the message [silently]. Users will receive a notification with no sound.",
+                        md_links: {"silently": "https://telegram.org/blog/channels-2-0#silent-messages"}
+                    )
+                ),
+                Param(
+                    name: "reply_to_message_id",
+                    ty: Option(i64),
+                    descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "reply_markup",
+                    ty: Option(RawTy("ReplyMarkup")),
+                    descr: Doc(md: "Additional interface options. A JSON-serialized object for an [inline keyboard], [custom reply keyboard], instructions to remove reply keyboard or to force a reply from the user."),
+                    md_links: {
+                        "inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating",
+                        "custom reply keyboard": "https://core.telegram.org/bots#keyboards",
+                    }
+                ),
+            ],
+        ),
+
+        Method(
+            names: ("sendDice", "SendDice", "send_dice"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to send an animated emoji that will display a random value. On success, the sent [Message] is returned.",
+                md_links: {"Message": "https://core.telegram.org/bots/api#message"},
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#senddice",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "emoji",
+                    ty: RawTy("DiceEmoji"),
+                    descr: Doc(md: "Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, or “🏀”. Dice can have values 1-6 for “🎲” and “🎯”, and values 1-5 for “🏀”. Defaults to “🎲”"),
+                ),
+                Param(
+                    name: "disable_notification",
+                    ty: Option(bool), 
+                    descr: Doc(
+                        md: "Sends the message [silently]. Users will receive a notification with no sound.",
+                        md_links: {"silently": "https://telegram.org/blog/channels-2-0#silent-messages"}
+                    )
+                ),
+                Param(
+                    name: "reply_to_message_id",
+                    ty: Option(i64),
+                    descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "reply_markup",
+                    ty: Option(RawTy("ReplyMarkup")),
+                    descr: Doc(md: "Additional interface options. A JSON-serialized object for an [inline keyboard], [custom reply keyboard], instructions to remove reply keyboard or to force a reply from the user."),
+                    md_links: {
+                        "inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating",
+                        "custom reply keyboard": "https://core.telegram.org/bots#keyboards",
+                    }
+                ),
+            ],
+        ),
+
+        Method(
+            names: ("sendChatAction", "SendChatAction", "send_chat_action"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method when you need to tell the user that something is happening on the bot's side. The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status). Returns True on success.\n\n> Example: The [ImageBot] needs some time to process a request and upload the image. Instead of sending a text message along the lines of “Retrieving image, please wait…”, the bot may use sendChatAction with action = upload_photo. The user will see a “sending photo” status for the bot.\n\nWe only recommend using this method when a response from the bot will take a **noticeable** amount of time to arrive.",
+                md_links: {"ImageBot": "https://t.me/imagebot"},
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#sendchataction",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "action",
+                    ty: RawTy("ChatAction"),
+                    descr: Doc(
+                        md: "Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for [text messages], upload_photo for [photos], record_video or upload_video for [videos], record_audio or upload_audio for [audio files], upload_document for [general files], find_location for [location data], record_video_note or upload_video_note for [video notes].",
+                        md_links: {
+                            "text messages": "https://core.telegram.org/bots/api#sendmessage",
+                            "photos": "https://core.telegram.org/bots/api#sendphoto",
+                            "videos": "https://core.telegram.org/bots/api#sendvideo",
+                            "audio files": "https://core.telegram.org/bots/api#sendaudio",
+                            "general files": "https://core.telegram.org/bots/api#senddocument",
+                            "location data": "https://core.telegram.org/bots/api#sendlocation",
+                            "video notes": "https://core.telegram.org/bots/api#sendvideonote",
+                        }
+                    ),
+                ),
+            ],
+        ),
+
+        
+
+
     ],
     tg_categoryes: {
         "Getting updates": "https://core.telegram.org/bots/api#getting-updates",
