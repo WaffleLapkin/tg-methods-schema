@@ -1393,6 +1393,183 @@ Schema(
                 ),
             ],
         ),
+        Method(
+            names: ("kickChatMember", "KickChatMember", "kick_chat_member"),
+            return_ty: True,
+            doc: Doc(
+                md: "Use this method to kick a user from a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the group on their own using invite links, etc., unless [unbanned] first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns _True_ on success.",
+                md_links: {"unbanned": "https://core.telegram.org/bots/api#unbanchatmember"},
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#kickchatmember",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "user_id",
+                    ty: u32,
+                    descr: Doc(md: "Unique identifier of the target user")
+                ),
+                Param(
+                    name: "until_date",
+                    ty: Option(u64),
+                    descr: Doc(md: "Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever")
+                ),
+            ],
+        ),
+        Method(
+            names: ("unbanChatMember", "UnbanChatMember", "unban_chat_member"),
+            return_ty: True,
+            doc: Doc(md: "Use this method to unban a previously kicked user in a supergroup or channel. The user will **not** return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. Returns _True_ on success."),
+            tg_doc: "https://core.telegram.org/bots/api#unbanchatmember",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "user_id",
+                    ty: u32,
+                    descr: Doc(md: "Unique identifier of the target user")
+                ),
+            ],
+        ),
+        Method(
+            names: ("restrictChatMember", "RestrictChatMember", "restrict_chat_member"),
+            return_ty: True,
+            doc: Doc(md: "Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights. Pass _True_ for all permissions to lift restrictions from a user. Returns _True_ on success."),
+            tg_doc: "https://core.telegram.org/bots/api#restrictchatmember",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "user_id",
+                    ty: u32,
+                    descr: Doc(md: "Unique identifier of the target user")
+                ),
+                Param(
+                    name: "permissions",
+                    ty: RawTy("ChatPermissions"),
+                    descr: Doc(md: "A JSON-serialized object for new user permissions")
+                ),
+                Param(
+                    name: "until_date",
+                    ty: Option(u64),
+                    descr: Doc(md: "Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever")
+                ),
+            ],
+        ),
+        Method(
+            names: ("promoteChatMember", "PromoteChatMember", "promote_chat_member"),
+            return_ty: True,
+            doc: Doc(md: "Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Pass _False_ for all boolean parameters to demote a user. Returns _True_ on success."),
+            tg_doc: "https://core.telegram.org/bots/api#promotechatmember",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "user_id",
+                    ty: u32,
+                    descr: Doc(md: "Unique identifier of the target user")
+                ),
+                Param(
+                    name: "can_change_info",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass True, if the administrator can change chat title, photo and other settings")
+                ),
+                Param(
+                    name: "can_post_messages",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass True, if the administrator can create channel posts, channels only")
+                ),
+                Param(
+                    name: "can_edit_messages",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass True, if the administrator can edit messages of other users and can pin messages, channels only")
+                ),
+                Param(
+                    name: "can_delete_messages",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass True, if the administrator can delete messages of other users")
+                ),
+                Param(
+                    name: "can_invite_users",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass True, if the administrator can invite new users to the chat")
+                ),
+                Param(
+                    name: "can_restrict_members",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass True, if the administrator can restrict, ban or unban chat members")
+                ),
+                 Param(
+                    name: "can_pin_messages",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass True, if the administrator can pin messages, supergroups only")
+                ),
+                Param(
+                    name: "can_promote_members",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him)")
+                ),
+            ],
+        ),
+        Method(
+            names: ("setChatAdministratorCustomTitle", "SetChatAdministratorCustomTitle", "set_chat_administrator_custom_title"),
+            return_ty: True,
+            doc: Doc(md: "Use this method to set a custom title for an administrator in a supergroup promoted by the bot. Returns _True_on success."),
+            tg_doc: "https://core.telegram.org/bots/api#setchatadministratorcustomtitle",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "user_id",
+                    ty: u32,
+                    descr: Doc(md: "Unique identifier of the target user")
+                ),
+                Param(
+                    name: "custom_title",
+                    ty: String,
+                    descr: Doc(md: "New custom title for the administrator; 0-16 characters, emoji are not allowed")
+                ),
+            ],
+        ),
+        Method(
+            names: ("setChatPermissions", "SetChatPermissions", "set_chat_permissions"),
+            return_ty: True,
+            doc: Doc(md: "Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a supergroup for this to work and must have the _can_restrict_members_ admin rights. Returns _True_ on success."),
+            tg_doc: "https://core.telegram.org/bots/api#setchatpermissions",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "permissions",
+                    ty: RawTy("ChatPermissions"),
+                    descr: Doc(md: "New default chat permissions")
+                ),
+            ],
+        ),
     ],
     tg_categoryes: {
         "Getting updates": "https://core.telegram.org/bots/api#getting-updates",
