@@ -1707,6 +1707,112 @@ Schema(
                 ),
             ],
         ),
+        Method(
+            names: ("getChat", "GetChat", "get_chat"),
+            return_ty: RawTy("Chat"),
+            doc: Doc(
+                md: "Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.). Returns a [Chat] object on success.",
+                md_links: {"Chat": "https://core.telegram.org/bots/api#chat"},
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#getchat",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+            ],
+        ),
+        Method(
+            names: ("getChatAdministrators", "GetChatAdministrators", "get_chat_administrators"),
+            return_ty: RawTy("ChatMember"),
+            doc: Doc(
+                md: "Use this method to get a list of administrators in a chat. On success, returns an Array of [ChatMember] objects that contains information about all chat administrators except other bots. If the chat is a group or a supergroup and no administrators were appointed, only the creator will be returned.",
+                md_links: {"ChatMember": "https://core.telegram.org/bots/api#chatmember"},
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#getchatadministrators",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+            ],
+        ),
+        Method(
+            names: ("getChatMembersCount", "GetChatMembersCount", "get_chat_members_count"),
+            return_ty: u32,
+            doc: Doc(md: "Use this method to get the number of members in a chat. Returns _Int_ on success."),
+            tg_doc: "https://core.telegram.org/bots/api#getchatmemberscount",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+            ],
+        ),
+        Method(
+            names: ("getChatMember", "GetChatMember", "get_chat_member"),
+            return_ty: u32,
+            doc: Doc(
+                md: "Use this method to get information about a member of a chat. Returns a [ChatMember] object on success.",
+                md_links: {"ChatMember": "https://core.telegram.org/bots/api#chatmember"}
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#getchatmember",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "user_id",
+                    ty: u32,
+                    descr: Doc(md: "Unique identifier of the target user")
+                ),
+            ],
+        ),
+        Method(
+            names: ("setChatStickerSet", "SetChatStickerSet", "set_chat_sticker_set"),
+            return_ty: u32,
+            doc: Doc(md: "Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field _can\\_set\\_sticker\\_set_ optionally returned in getChat requests to check if the bot can use this method. Returns _True_ on success."),
+            tg_doc: "https://core.telegram.org/bots/api#set_chat_sticker_set",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "sticker_set_name",
+                    ty: String,
+                    descr: Doc(md: "Name of the sticker set to be set as the group sticker set")
+                ),
+            ],
+        ),
+        Method(
+            names: ("deleteChatStickerSet", "DeleteChatStickerSet", "delete_chat_sticker_set"),
+            return_ty: u32,
+            doc: Doc(
+                md: "Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field `can_set_sticker_set` optionally returned in [getChat] requests to check if the bot can use this method. Returns _True_ on success.",
+                md_links: {"getChat": "https://core.telegram.org/bots/api#getchat"}
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#deletechatstickerset",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+            ],
+        ),
     ],
     tg_categoryes: {
         "Getting updates": "https://core.telegram.org/bots/api#getting-updates",
