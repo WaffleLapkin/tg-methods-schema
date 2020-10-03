@@ -1757,7 +1757,7 @@ Schema(
         ),
         Method(
             names: ("getChatMember", "GetChatMember", "get_chat_member"),
-            return_ty: u32,
+            return_ty: RawTy("ChatMember"),
             doc: Doc(
                 md: "Use this method to get information about a member of a chat. Returns a [ChatMember] object on success.",
                 md_links: {"ChatMember": "https://core.telegram.org/bots/api#chatmember"}
@@ -1779,7 +1779,7 @@ Schema(
         ),
         Method(
             names: ("setChatStickerSet", "SetChatStickerSet", "set_chat_sticker_set"),
-            return_ty: u32,
+            return_ty: True,
             doc: Doc(md: "Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field _can\\_set\\_sticker\\_set_ optionally returned in getChat requests to check if the bot can use this method. Returns _True_ on success."),
             tg_doc: "https://core.telegram.org/bots/api#set_chat_sticker_set",
             tg_category: "Available methods",
@@ -1798,7 +1798,7 @@ Schema(
         ),
         Method(
             names: ("deleteChatStickerSet", "DeleteChatStickerSet", "delete_chat_sticker_set"),
-            return_ty: u32,
+            return_ty: True,
             doc: Doc(
                 md: "Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field `can_set_sticker_set` optionally returned in [getChat] requests to check if the bot can use this method. Returns _True_ on success.",
                 md_links: {"getChat": "https://core.telegram.org/bots/api#getchat"}
