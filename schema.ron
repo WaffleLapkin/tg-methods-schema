@@ -1813,6 +1813,78 @@ Schema(
                 ),
             ],
         ),
+        Method(
+            names: ("answerCallbackQuery", "AnswerCallbackQuery", "answer_callback_query"),
+            return_ty: True,
+            doc: Doc(
+                md: "Use this method to send answers to callback queries sent from [inline keyboards]. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned.\n\n>Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via [@Botfather] and accept the terms. Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot with a parameter.",
+                md_links: {
+                    "inline keyboards": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating",
+                    "@Botfather": "https://t.me/botfather",
+                }
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#answercallbackquery",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "callback_query_id",
+                    ty: String,
+                    descr: Doc(md: "Unique identifier for the query to be answered"),
+                ),
+                Param(
+                    name: "text",
+                    ty: Option(String),
+                    descr: Doc(md: "Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters"),
+                ),
+                Param(
+                    name: "show_alert",
+                    ty: Option(bool),
+                    descr: Doc(md: "If true, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to false."),
+                ),
+                Param(
+                    name: "url",
+                    ty: Option(String),
+                    descr: Doc(
+                        md: "URL that will be opened by the user's client. If you have created a [Game] and accepted the conditions via [@Botfather], specify the URL that opens your game — note that this will only work if the query comes from a _[callback\\_game]_ button.\n\nOtherwise, you may use links like `t.me/your\\_bot?start=XXXX` that open your bot with a parameter.",
+                        md_links: {
+                            "Game": "https://core.telegram.org/bots/api#game",
+                            "@Botfather": "https://t.me/botfather",
+                            "callback_game": "https://core.telegram.org/bots/api#inlinekeyboardbutton",
+                        },
+                    ),
+                ),
+                Param(
+                    name: "cache_time",
+                    ty: Option(u32),
+                    descr: Doc(md: "The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram apps will support caching starting in version 3.14. Defaults to 0."),
+                ),
+            ],
+        ),
+        Method(
+            names: ("setMyCommands", "SetMyCommands", "set_my_commands"),
+            return_ty: u32,
+            doc: Doc(md: "Use this method to change the list of the bot's commands. Returns _True_ on success."),
+            tg_doc: "https://core.telegram.org/bots/api#setmycommands",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "commands",
+                    ty: ArrayOf(RawTy("BotCommand")),
+                    descr: Doc(md: "A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.")
+                ),
+            ],
+        ),
+        Method(
+            names: ("getMyCommands", "GetMyCommands", "get_my_commands"),
+            return_ty: u32,
+            doc: Doc(
+                md: "Use this method to get the current list of the bot's commands. Requires no parameters. Returns Array of [BotCommand] on success.",
+                md_links: {"BotCommand": "https://core.telegram.org/bots/api#botcommand"},
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#getmycommands",
+            tg_category: "Available methods",
+            params: [],
+        ),
     ],
     tg_categoryes: {
         "Getting updates": "https://core.telegram.org/bots/api#getting-updates",
