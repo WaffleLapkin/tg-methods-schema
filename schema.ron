@@ -1878,7 +1878,7 @@ Schema(
             names: ("getMyCommands", "GetMyCommands", "get_my_commands"),
             return_ty: u32,
             doc: Doc(
-                md: "Use this method to get the current list of the bot's commands. Requires no parameters. Returns Array of [BotCommand] on success."
+                md: "Use this method to get the current list of the bot's commands. Requires no parameters. Returns Array of [BotCommand] on success.",
                 md_links: {"BotCommand": "https://core.telegram.org/bots/api#botcommand"},
             ),
             tg_doc: "https://core.telegram.org/bots/api#getmycommands",
