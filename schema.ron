@@ -2245,11 +2245,251 @@ Schema(
                 ),  
             ],
         ),
+        Method(
+            names: ("sendSticker", "SendSticker", "send_sticker"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to send static .WEBP or [animated] .TGS stickers. On success, the sent Message is returned.", 
+                links: {"animated": "https://telegram.org/blog/animated-stickers"}
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#send_sticker",
+            tg_category: "Stickers",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`).")
+                ),
+                Param(
+                    name: "sticker",
+                    ty: RawTy("InputFile"),
+                    descr: Doc(
+                        md: "Sticker to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. [More info on Sending Files »]",
+                        md_links: {"More info on Sending Files »": "https://core.telegram.org/bots/api#sending-files"},
+                    )
+                ),
+                Param(
+                    name: "disable_notification",
+                    ty: Option(bool), 
+                    descr: Doc(
+                        md: "Sends the message [silently]. Users will receive a notification with no sound.",
+                        md_links: {"silently": "https://telegram.org/blog/channels-2-0#silent-messages"}
+                    )
+                ),
+                Param(
+                    name: "reply_to_message_id",
+                    ty: Option(i64),
+                    descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "reply_markup",
+                    ty: Option(RawTy("ReplyMarkup")),
+                    descr: Doc(md: "Additional interface options. A JSON-serialized object for an [inline keyboard], [custom reply keyboard], instructions to remove reply keyboard or to force a reply from the user."),
+                    md_links: {
+                        "inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating",
+                        "custom reply keyboard": "https://core.telegram.org/bots#keyboards",
+                    }
+                ),
+            ],
+        ),
+        Method(
+            names: ("getStickerSet", "GetStickerSet", "get_sticker_set"),
+            return_ty: True,
+            doc: Doc(md: "Use this method to get a sticker set. On success, a StickerSet object is returned."),
+            tg_doc: "https://core.telegram.org/bots/api#getstickerset",
+            tg_category: "Stickers",
+            params: [
+                Param(
+                    name: "name",
+                    ty: String,
+                    descr: Doc(md: "Name of the sticker set"),
+                ),
+            ],
+        ),
+        Method(
+            names: ("uploadStickerFile", "UploadStickerFile", "upload_sticker_file"),
+            return_ty: RawTy("File"),
+            doc: Doc(md: "Use this method to upload a .PNG file with a sticker for later use in _createNewStickerSet_ and _addStickerToSet_ methods (can be used multiple times). Returns the uploaded File on success."),
+            tg_doc: "https://core.telegram.org/bots/api#uploadstickerfile",
+            tg_category: "Stickers",
+            params: [
+                Param(
+                    name: "user_id",
+                    ty: u32,
+                    descr: Doc(md: "User identifier of sticker file owner"),
+                ),
+                Param(
+                    name: "png_sticker",
+                    ty: RawTy("InputFile"),
+                    descr: Doc(
+                        md: "PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. [More info on Sending Files »]",
+                        md_links: {"More info on Sending Files »": "https://core.telegram.org/bots/api#sending-files"},
+                    ),
+                ),
+            ],
+        ),
+        Method(
+            names: ("createNewStickerSet", "CreateNewStickerSet", "create_new_sticker_set"),
+            return_ty: True,
+            doc: Doc(md: "Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. You must use exactly one of the fields _png\\_sticker_ or _tgs\\_sticker_. Returns _True_ on success."),
+            tg_doc: "https://core.telegram.org/bots/api#createstickerset",
+            tg_category: "Stickers",
+            params: [
+                Param(
+                    name: "user_id",
+                    ty: u32,
+                    descr: Doc(md: "User identifier of sticker file owner"),
+                ),
+                Param(
+                    name: "name",
+                    ty: String,
+                    descr: Doc(md: "Short name of sticker set, to be used in `t.me/addstickers/` URLs (e.g., _animals_). Can contain only english letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in _“\\_by\\_<bot username>”. <bot\\_username>_ is case insensitive. 1-64 characters."),
+                ),
+                Param(
+                    name: "title",
+                    ty: String,
+                    descr: Doc(md: "Sticker set title, 1-64 characters"),
+                ),
+                // TODO: this should be enum but ehhhhh
+                Param(
+                    name: "png_sticker",
+                    ty: Option(RawTy("InputFile")),
+                    descr: Doc(
+                        md: "**PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a _file\\_id_ as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »]",
+                        md_links: {"More info on Sending Files »": "https://core.telegram.org/bots/api#sending-files"},
+                    ),
+                ),
+                Param(
+                    name: "tgs_sticker",
+                    ty: Option(RawTy("InputFile")),
+                    descr: Doc(md: "**TGS** animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements"),
+                ),
+                Param(
+                    name: "emojis",
+                    ty: String,
+                    descr: Doc(md: "One or more emoji corresponding to the sticker"),
+                ),
+                Param(
+                    name: "contains_masks",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if a set of mask stickers should be created"),
+                ),
+                Param(
+                    name: "mask_position",
+                    ty: Option(RawTy("MaskPosition")),
+                    descr: Doc(md: "A JSON-serialized object for position where the mask should be placed on faces"),
+                ),
+            ],
+        ),
+        Method(
+            names: ("addStickerToSet", "AddStickerToSet", "add_sticker_to_set"),
+            return_ty: True,
+            doc: Doc(md: "Use this method to add a new sticker to a set created by the bot. You **must** use exactly one of the fields _png\\_sticker_ or _tgs\\_sticker_. Animated stickers can be added to animated sticker sets and only to them. Animated sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns _True_ on success."),
+            tg_doc: "https://core.telegram.org/bots/api#addstickertoset",
+            tg_category: "Stickers",
+            params: [
+                Param(
+                    name: "user_id",
+                    ty: u32,
+                    descr: Doc(md: "User identifier of sticker file owner"),
+                ),
+                Param(
+                    name: "name",
+                    ty: String,
+                    descr: Doc(md: "Sticker set name"),
+                ),
+                // TODO: this should be enum but ehhhhh
+                Param(
+                    name: "png_sticker",
+                    ty: Option(RawTy("InputFile")),
+                    descr: Doc(
+                        md: "**PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a _file\\_id_ as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »]",
+                        md_links: {"More info on Sending Files »": "https://core.telegram.org/bots/api#sending-files"},
+                    ),
+                ),
+                Param(
+                    name: "tgs_sticker",
+                    ty: Option(RawTy("InputFile")),
+                    descr: Doc(md: "**TGS** animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements"),
+                ),
+                Param(
+                    name: "emojis",
+                    ty: String,
+                    descr: Doc(md: "One or more emoji corresponding to the sticker"),
+                ),
+                Param(
+                    name: "mask_position",
+                    ty: Option(RawTy("MaskPosition")),
+                    descr: Doc(md: "A JSON-serialized object for position where the mask should be placed on faces"),
+                ),
+            ],
+        ),
+        Method(
+            names: ("setStickerPositionInSet", "SetStickerPositionInSet", "set_sticker_position_in_set"),
+            return_ty: True,
+            doc: Doc(md: "Use this method to move a sticker in a set created by the bot to a specific position. Returns _True_ on success."),
+            tg_doc: "https://core.telegram.org/bots/api#setstickerpositioninset",
+            tg_category: "Stickers",
+            params: [
+                Param(
+                    name: "sticker",
+                    ty: String,
+                    descr: Doc(md: "File identifier of the sticker"),
+                ),
+                Param(
+                    name: "position",
+                    ty: u32,
+                    descr: Doc(md: "New sticker position in the set, zero-based"),
+                ),
+            ],
+        ),
+        Method(
+            names: ("deleteStickerFromSet", "DeleteStickerFromSet", "delete_sticker_from_set"),
+            return_ty: True,
+            doc: Doc(md: "Use this method to delete a sticker from a set created by the bot. Returns _True_ on success."),
+            tg_doc: "https://core.telegram.org/bots/api#deletestickerfromset",
+            tg_category: "Stickers",
+            params: [
+                Param(
+                    name: "sticker",
+                    ty: String,
+                    descr: Doc(md: "File identifier of the sticker"),
+                ),
+            ],
+        ),
+        Method(
+            names: ("setStickerSetThumb", "SetStickerSetThumb", "set_sticker_set_thumb"),
+            return_ty: True,
+            doc: Doc(md: "Use this method to set the thumbnail of a sticker set. Animated thumbnails can be set for animated sticker sets only. Returns _True_ on success."),
+            tg_doc: "https://core.telegram.org/bots/api#setstickersetthumb",
+            tg_category: "Stickers",
+            params: [
+                Param(
+                    name: "name",
+                    ty: String,
+                    descr: Doc(md: "Name of the sticker set"),
+                ),
+                Param(
+                    name: "user_id",
+                    ty: u32,
+                    descr: Doc(md: "User identifier of sticker file owner"),
+                ),
+                Param(
+                    name: "thumb",
+                    ty: Option(RawTy("InputFile")),
+                    descr: Doc(
+                        md: "A **PNG** image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a **TGS** animation with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/animated_stickers#technical-requirements for animated sticker technical requirements. Pass a _file\\_id_ as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »]. Animated sticker set thumbnail can't be uploaded via HTTP URL.",
+                        md_links: {"More info on Sending Files »": "https://core.telegram.org/bots/api#sending-files"},
+                    ),
+                ),
+            ],
+        ),
     ],
     tg_categoryes: {
         "Getting updates": "https://core.telegram.org/bots/api#getting-updates",
         "Available methods": "https://core.telegram.org/bots/api#available-methods",
         "Inline Mode": "https://core.telegram.org/bots/api#inline-mode",
         "Updating messages": "https://core.telegram.org/bots/api#updating-messages",
+        "Stickers": "https://core.telegram.org/bots/api#stickers",
     }
 )
