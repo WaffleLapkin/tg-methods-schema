@@ -2696,7 +2696,7 @@ Schema(
                 ),
             ],
         ),
-                Method(
+        Method(
             names: ("sendGame", "SendGame", "send_game"),
             return_ty: RawTy("Message"),
             doc: Doc(
