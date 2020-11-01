@@ -2695,7 +2695,139 @@ Schema(
                     descr: Doc(md: "A JSON-serialized array describing the errors"),
                 ),
             ],
-        ),        
+        ),
+                Method(
+            names: ("sendGame", "SendGame", "send_game"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to send a game. On success, the sent [Message] is returned.",
+                md_links: {"Message": "https://core.telegram.org/bots/api#message"}    
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#send_game",
+            tg_category: "Games",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: u32,
+                    descr: Doc(md: "Unique identifier for the target chat"),
+                ),
+                Param(
+                    name: "game_short_name",
+                    ty: String,
+                    descr: Doc(md: "Short name of the game, serves as the unique identifier for the game. Set up your games via Botfather."),
+                ),
+            ],
+        ),
+        Method(
+            names: ("setGameScore", "SetGameScore", "set_game_score"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to set the score of the specified user in a game. On success, returns the edited [Message]. Returns an error, if the new score is not greater than the user's current score in the chat and force is False.",
+                md_links: {"Message": "https://core.telegram.org/bots/api#message"}         
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#setgamescore",
+            tg_category: "Games",
+            params: [
+                Param(
+                    name: "user_id",
+                    ty: u32,
+                    descr: Doc(md: "User identifier"),
+                ),
+                Param(
+                    name: "score",
+                    ty: u64,
+                    descr: Doc(md: "New score"),
+                ),
+                Param(
+                    name: "force",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass True, if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters"),
+                ),
+                Param(
+                    name: "disable_edit_message",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass True, if the game message should not be automatically edited to include the current scoreboard"),
+                ),
+                Param(
+                    name: "score",
+                    ty: u64,
+                    descr: Doc(md: "New score"),
+                ),
+                Param(
+                    name: "chat_id",
+                    ty: u32,
+                    descr: Doc(md: "Unique identifier for the target chat")
+                ),
+                Param(
+                    name: "message_id",
+                    ty: i64, 
+                    descr: Doc(md: "Identifier of the message to edit")
+                ),
+            ],
+            sibling: Some("setGameScoreInline"),
+        ),
+        Method(
+            names: ("setGameScoreInline", "SetGameScoreInline", "set_game_score_inline"),
+            return_ty: RawTy("Message"),
+            doc: Doc(md: "Use this method to set the score of the specified user in a game. On success, returns _True_. Returns an error, if the new score is not greater than the user's current score in the chat and force is False."),
+            tg_doc: "https://core.telegram.org/bots/api#setgamescore",
+            tg_category: "Games",
+            params: [
+                Param(
+                    name: "user_id",
+                    ty: u32,
+                    descr: Doc(md: "User identifier"),
+                ),
+                Param(
+                    name: "score",
+                    ty: u64,
+                    descr: Doc(md: "New score"),
+                ),
+                Param(
+                    name: "force",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass True, if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters"),
+                ),
+                Param(
+                    name: "disable_edit_message",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass True, if the game message should not be automatically edited to include the current scoreboard"),
+                ),
+                Param(
+                    name: "score",
+                    ty: u64,
+                    descr: Doc(md: "New score"),
+                ),
+                Param(
+                    name: "inline_message_id",
+                    ty: String,
+                    descr: Doc(md: "Identifier of the inline message"),
+                ),
+            ],
+            sibling: Some("setGameScore"),
+        ),
+        Method(
+            names: ("getGameHighScores", "GetGameHighScores", "get_game_high_scores"),
+            return_ty: True,
+            doc: Doc(
+                md: "Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game. On success, returns an Array of [GameHighScore] objects.\n\n> This method will currently return scores for the target user, plus two of their closest neighbors on each side. Will also return the top three users if the user and his neighbors are not among them. Please note that this behavior is subject to change.",
+                md_links: {"GameHighScore": "https://core.telegram.org/bots/api#gamehighscore"},
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#getgamehighscores",
+            tg_category: "Games",
+            params: [
+                Param(
+                    name: "user_id",
+                    ty: u32,
+                    descr: Doc(md: "User identifier"),
+                ),
+                Param(
+                    name: "target",
+                    ty: RawTy("TargetMessage"),
+                    descr: Doc(md: "Target message")
+                )
+            ],
+        ),
     ],
     tg_categoryes: {
         "Getting updates": "https://core.telegram.org/bots/api#getting-updates",
@@ -2704,6 +2836,7 @@ Schema(
         "Updating messages": "https://core.telegram.org/bots/api#updating-messages",
         "Stickers": "https://core.telegram.org/bots/api#stickers",
         "Payments": "https://core.telegram.org/bots/api#payments",
-        "Telegram Passport": "https://core.telegram.org/bots/api#telegram-passport",
+        "Telegram Passport": "https://core.telegram.org/bots/api#telegram-passport",    
+        "Games": "https://core.telegram.org/bots/api#games",
     }
 )
