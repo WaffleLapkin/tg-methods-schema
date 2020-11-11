@@ -1270,7 +1270,7 @@ Schema(
                     descr: Doc(md: "Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date.")
                 ),
                 Param(
-                    name: "open_period",
+                    name: "close_date",
                     ty: Option(u64),
                     descr: Doc(md: "Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future. Can't be used together with open_period.")
                 ),
@@ -2177,7 +2177,7 @@ Schema(
             ],
         ),
         Method(
-            names: ("editMessageMediaInline", "editMessageMediaInline", "edit_message_media_inline"),
+            names: ("editMessageMediaInline", "EditMessageMediaInline", "edit_message_media_inline"),
             return_ty: True,
             doc: Doc(md: "Use this method to edit animation, audio, document, photo, or video messages. If a message is a part of a message album, then it can be edited only to a photo or a video. Otherwise, message type can be changed arbitrarily. When inline message is edited, new file can't be uploaded. Use previously uploaded file via its file_id or specify a URL. On success, _True_ is returned."),
             tg_doc: "https://core.telegram.org/bots/api#editmessagemediainline",
