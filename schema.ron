@@ -121,7 +121,7 @@ Schema(
                     ty: ArrayOf(RawTy("AllowedUpdate")),
                     descr: Doc(
                         md: "A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See [Update] for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.\n\nPlease note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.",
-                        md_links: {"update":"https://core.telegram.org/bots/api#update"},
+                        md_links: {"Update":"https://core.telegram.org/bots/api#update"},
                     ),
                 )
             ],
@@ -812,7 +812,7 @@ Schema(
             names: ("sendMediaGroup", "SendMediaGroup", "send_media_group"),
             return_ty: RawTy("Message"),
             doc: Doc(
-                md: "Use this method to send a group of photos or videos as an album. On success, an array of the sent [Messages] is returned.",
+                md: "Use this method to send a group of photos or videos as an album. On success, an array of the sent [Message]s is returned.",
                 md_links: {"Message": "https://core.telegram.org/bots/api#message"},
             ),
             tg_doc: "https://core.telegram.org/bots/api#sendmediagroup",
@@ -1270,7 +1270,7 @@ Schema(
                     descr: Doc(md: "Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date.")
                 ),
                 Param(
-                    name: "open_period",
+                    name: "close_date",
                     ty: Option(u64),
                     descr: Doc(md: "Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future. Can't be used together with open_period.")
                 ),
@@ -1977,8 +1977,8 @@ Schema(
             names: ("editMessageText", "EditMessageText", "edit_message_text"),
             return_ty: RawTy("Message"),
             doc: Doc(
-                md: "Use this method to edit text and [game] messages. On success, the edited Message is returned.",
-                md_links: {"game": "https://core.telegram.org/bots/api#games"},
+                md: "Use this method to edit text and [games] messages. On success, the edited Message is returned.",
+                md_links: {"games": "https://core.telegram.org/bots/api#games"},
             ),
             tg_doc: "https://core.telegram.org/bots/api#editmessagetext",
             tg_category: "Updating messages",
@@ -2026,8 +2026,8 @@ Schema(
             names: ("editMessageTextInline", "EditMessageTextInline", "edit_message_text_inline"),
             return_ty: True,
             doc: Doc(
-                md: "Use this method to edit text and [game] messages. On success, _True_ is returned.",
-                md_links: {"game": "https://core.telegram.org/bots/api#games"},
+                md: "Use this method to edit text and [games] messages. On success, _True_ is returned.",
+                md_links: {"games": "https://core.telegram.org/bots/api#games"},
             ),
             tg_doc: "https://core.telegram.org/bots/api#editmessagetext",
             tg_category: "Updating messages",
@@ -2177,7 +2177,7 @@ Schema(
             ],
         ),
         Method(
-            names: ("editMessageMediaInline", "editMessageMediaInline", "edit_message_media_inline"),
+            names: ("editMessageMediaInline", "EditMessageMediaInline", "edit_message_media_inline"),
             return_ty: True,
             doc: Doc(md: "Use this method to edit animation, audio, document, photo, or video messages. If a message is a part of a message album, then it can be edited only to a photo or a video. Otherwise, message type can be changed arbitrarily. When inline message is edited, new file can't be uploaded. Use previously uploaded file via its file_id or specify a URL. On success, _True_ is returned."),
             tg_doc: "https://core.telegram.org/bots/api#editmessagemediainline",
