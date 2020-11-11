@@ -10,6 +10,7 @@
 use std::{fs::File, collections::HashMap, io::Read};
 
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
+#[serde(deny_unknown_fields)]
 struct Schema {
     api_version: ApiVersion,
     methods: Vec<Method>,
@@ -17,12 +18,14 @@ struct Schema {
 }
 
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
+#[serde(deny_unknown_fields)]
 struct ApiVersion {
     ver: String,
     date: String,
 }
 
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
+#[serde(deny_unknown_fields)]
 struct Method {
     names: (String, String, String),
     return_ty: Type,
@@ -37,6 +40,7 @@ struct Method {
 }
 
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
+#[serde(deny_unknown_fields)]
 struct Doc {
     md: String,
     #[serde(default)]
@@ -44,6 +48,7 @@ struct Doc {
 }
 
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
+#[serde(deny_unknown_fields)]
 struct Param {
     name: String,
     ty: Type,
@@ -52,6 +57,7 @@ struct Param {
 
 #[allow(non_camel_case_types)]
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
+#[serde(deny_unknown_fields)]
 enum Type {
     True,
     u8,
