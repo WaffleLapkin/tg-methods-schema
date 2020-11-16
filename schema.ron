@@ -216,7 +216,7 @@ Schema(
                 ),
                 Param(
                     name: "reply_to_message_id",
-                    ty: Option(i64),
+                    ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
@@ -262,7 +262,7 @@ Schema(
                 ),
                 Param(
                     name: "message_id",
-                    ty: i64, 
+                    ty: i32, 
                     descr: Doc(md: "Message identifier in the chat specified in _from\\_chat\\_id_")
                 ),
             ],
@@ -313,7 +313,7 @@ Schema(
                 ),
                 Param(
                     name: "reply_to_message_id",
-                    ty: Option(i64),
+                    ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
@@ -401,7 +401,7 @@ Schema(
                 ),
                 Param(
                     name: "reply_to_message_id",
-                    ty: Option(i64),
+                    ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
@@ -471,7 +471,7 @@ Schema(
                 ),
                 Param(
                     name: "reply_to_message_id",
-                    ty: Option(i64),
+                    ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
@@ -564,7 +564,7 @@ Schema(
                 ),
                 Param(
                     name: "reply_to_message_id",
-                    ty: Option(i64),
+                    ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
@@ -650,7 +650,7 @@ Schema(
                 ),
                 Param(
                     name: "reply_to_message_id",
-                    ty: Option(i64),
+                    ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
@@ -721,7 +721,7 @@ Schema(
                 ),
                 Param(
                     name: "reply_to_message_id",
-                    ty: Option(i64),
+                    ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
@@ -791,7 +791,7 @@ Schema(
                 ),
                 Param(
                     name: "reply_to_message_id",
-                    ty: Option(i64),
+                    ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
@@ -838,7 +838,7 @@ Schema(
                 ),
                 Param(
                     name: "reply_to_message_id",
-                    ty: Option(i64),
+                    ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
             ],
@@ -886,7 +886,7 @@ Schema(
                 ),
                 Param(
                     name: "reply_to_message_id",
-                    ty: Option(i64),
+                    ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
@@ -919,7 +919,7 @@ Schema(
                 ),
                 Param(
                     name: "message_id",
-                    ty: i64, 
+                    ty: i32, 
                     descr: Doc(md: "Identifier of the message to edit")
                 ),
                 Param(
@@ -1005,7 +1005,7 @@ Schema(
                 ),
                 Param(
                     name: "message_id",
-                    ty: i64, 
+                    ty: i32, 
                     descr: Doc(md: "Identifier of the message to edit")
                 ),
                 Param(
@@ -1126,7 +1126,7 @@ Schema(
                 ),
                 Param(
                     name: "reply_to_message_id",
-                    ty: Option(i64),
+                    ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
@@ -1190,7 +1190,7 @@ Schema(
                 ),
                 Param(
                     name: "reply_to_message_id",
-                    ty: Option(i64),
+                    ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
@@ -1289,7 +1289,7 @@ Schema(
                 ),
                 Param(
                     name: "reply_to_message_id",
-                    ty: Option(i64),
+                    ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
@@ -1335,7 +1335,7 @@ Schema(
                 ),
                 Param(
                     name: "reply_to_message_id",
-                    ty: Option(i64),
+                    ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
@@ -1707,7 +1707,7 @@ Schema(
                 ),
                 Param(
                     name: "message_id",
-                    ty: i64,
+                    ty: i32,
                     descr: Doc(md: "Identifier of a message to pin"),
                 ),
                 Param(
@@ -1991,7 +1991,7 @@ Schema(
                 ),
                 Param(
                     name: "message_id",
-                    ty: i64,
+                    ty: i32,
                     descr: Doc(md: "Identifier of the message to edit")
                 ),
                 Param(
@@ -2081,7 +2081,7 @@ Schema(
                 ),
                 Param(
                     name: "message_id",
-                    ty: i64,
+                    ty: i32,
                     descr: Doc(md: "Identifier of the message to edit")
                 ),
                 Param(
@@ -2158,7 +2158,7 @@ Schema(
                 ),
                 Param(
                     name: "message_id",
-                    ty: i64,
+                    ty: i32,
                     descr: Doc(md: "Identifier of the message to edit")
                 ),
                 Param(
@@ -2219,7 +2219,7 @@ Schema(
                 ),
                 Param(
                     name: "message_id",
-                    ty: i64,
+                    ty: i32,
                     descr: Doc(md: "Identifier of the message to edit")
                 ),
                 Param(
@@ -2269,7 +2269,7 @@ Schema(
                 ),
                 Param(
                     name: "message_id",
-                    ty: i64,
+                    ty: i32,
                     descr: Doc(md: "Identifier of the message to edit")
                 ),
                 Param(
@@ -2296,7 +2296,7 @@ Schema(
                 ),
                 Param(
                     name: "message_id",
-                    ty: i64,
+                    ty: i32,
                     descr: Doc(md: "Identifier of the message to delete")
                 ),  
             ],
@@ -2334,7 +2334,7 @@ Schema(
                 ),
                 Param(
                     name: "reply_to_message_id",
-                    ty: Option(i64),
+                    ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
@@ -2659,7 +2659,7 @@ Schema(
                 ),
                 Param(
                     name: "reply_to_message_id",
-                    ty: Option(i64),
+                    ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
