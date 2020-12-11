@@ -292,7 +292,7 @@ Schema(
                 ),
                 Param(
                     name: "caption",
-                    ty: String,
+                    ty: Option(String),
                     descr: Doc(md: "Photo caption (may also be used when resending photos by _file\\_id_), 0-1024 characters after entities parsing")
                 ),
                 Param(
@@ -357,7 +357,7 @@ Schema(
                 ),
                 Param(
                     name: "caption",
-                    ty: String,
+                    ty: Option(String),
                     descr: Doc(md: "Audio caption, 0-1024 characters after entities parsing"),
                 ),
                 Param(
@@ -450,7 +450,7 @@ Schema(
                 ),
                 Param(
                     name: "caption",
-                    ty: String,
+                    ty: Option(String),
                     descr: Doc(md: "Document caption (may also be used when resending documents by _file\\_id_), 0-1024 characters after entities parsing"),
                 ),
                 Param(
@@ -538,7 +538,7 @@ Schema(
                 ),
                 Param(
                     name: "caption",
-                    ty: String,
+                    ty: Option(String),
                     descr: Doc(md: "Video caption (may also be used when resending videos by _file\\_id_), 0-1024 characters after entities parsing"),
                 ),
                 Param(
@@ -629,7 +629,7 @@ Schema(
                 ),
                 Param(
                     name: "caption",
-                    ty: String,
+                    ty: Option(String),
                     descr: Doc(md: "Animation caption (may also be used when resending videos by _file\\_id_), 0-1024 characters after entities parsing"),
                 ),
                 Param(
@@ -695,7 +695,7 @@ Schema(
                 ),
                 Param(
                     name: "caption",
-                    ty: String,
+                    ty: Option(String),
                     descr: Doc(md: "Voice message caption, 0-1024 characters after entities parsing"),
                 ),
                 Param(
@@ -2086,7 +2086,7 @@ Schema(
                 ),
                 Param(
                     name: "caption",
-                    ty: String,
+                    ty: Option(String),
                     descr: Doc(md: "New caption of the message, 0-1024 characters after entities parsing")
                 ),
                 Param(
@@ -2122,7 +2122,7 @@ Schema(
                 ),
                 Param(
                     name: "caption",
-                    ty: String,
+                    ty: Option(String),
                     descr: Doc(md: "New caption of the message, 0-1024 characters after entities parsing")
                 ),
                 Param(
