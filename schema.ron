@@ -2803,11 +2803,6 @@ Schema(
                     descr: Doc(md: "Pass True, if the game message should not be automatically edited to include the current scoreboard"),
                 ),
                 Param(
-                    name: "score",
-                    ty: u64,
-                    descr: Doc(md: "New score"),
-                ),
-                Param(
                     name: "chat_id",
                     ty: u32,
                     descr: Doc(md: "Unique identifier for the target chat")
@@ -2846,11 +2841,6 @@ Schema(
                     name: "disable_edit_message",
                     ty: Option(bool),
                     descr: Doc(md: "Pass True, if the game message should not be automatically edited to include the current scoreboard"),
-                ),
-                Param(
-                    name: "score",
-                    ty: u64,
-                    descr: Doc(md: "New score"),
                 ),
                 Param(
                     name: "inline_message_id",
