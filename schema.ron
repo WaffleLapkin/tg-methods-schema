@@ -2352,7 +2352,7 @@ Schema(
         ),
         Method(
             names: ("getStickerSet", "GetStickerSet", "get_sticker_set"),
-            return_ty: True,
+            return_ty: RawTy("StickerSet"),
             doc: Doc(md: "Use this method to get a sticker set. On success, a StickerSet object is returned."),
             tg_doc: "https://core.telegram.org/bots/api#getstickerset",
             tg_category: "Stickers",
@@ -2408,19 +2408,13 @@ Schema(
                     ty: String,
                     descr: Doc(md: "Sticker set title, 1-64 characters"),
                 ),
-                // TODO: this should be enum but ehhhhh
                 Param(
-                    name: "png_sticker",
-                    ty: Option(RawTy("InputFile")),
+                    name: "sticker",
+                    ty: RawTy("InputSticker"),
                     descr: Doc(
-                        md: "**PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a _file\\_id_ as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »]",
+                        md: "**PNG** or **TGS** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a _file\\_id_ as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »]",
                         md_links: {"More info on Sending Files »": "https://core.telegram.org/bots/api#sending-files"},
                     ),
-                ),
-                Param(
-                    name: "tgs_sticker",
-                    ty: Option(RawTy("InputFile")),
-                    descr: Doc(md: "**TGS** animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements"),
                 ),
                 Param(
                     name: "emojis",
