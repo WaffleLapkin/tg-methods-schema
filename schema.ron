@@ -810,7 +810,7 @@ Schema(
         ),
         Method(
             names: ("sendMediaGroup", "SendMediaGroup", "send_media_group"),
-            return_ty: RawTy("Message"),
+            return_ty: ArrayOf(RawTy("Message")),
             doc: Doc(
                 md: "Use this method to send a group of photos or videos as an album. On success, an array of the sent [Message]s is returned.",
                 md_links: {"Message": "https://core.telegram.org/bots/api#message"},
