@@ -1159,12 +1159,12 @@ Schema(
                 ),
                 Param(
                     name: "phone_number",
-                    ty: f64,
+                    ty: String,
                     descr: Doc(md: "Contact's phone number"),
                 ),
                 Param(
                     name: "first_name",
-                    ty: f64,
+                    ty: String,
                     descr: Doc(md: "Contact's first name"),
                 ),
                 Param(
