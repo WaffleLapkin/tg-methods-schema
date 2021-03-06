@@ -1,4 +1,4 @@
-#!/usr/bin/env run-cargo-script
+#!/usr/bin/env -S cargo eval --
 //! Script that checks that `.ron` schema is formatted properly
 //! 
 //! ```cargo

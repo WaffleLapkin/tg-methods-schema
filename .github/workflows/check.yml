@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Install cargo script
-      run: cargo install cargo-script
+    - name: Install cargo eval
+      run: cargo install cargo-eva"
     - name: Check
-      run: cargo script -- check
+      run: cargo eval -- check
