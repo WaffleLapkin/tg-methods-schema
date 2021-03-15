@@ -112,18 +112,28 @@ Schema(
                     )
                 ),
                 Param(
+                    name: "ip_address",
+                    ty: Option(String),
+                    descr: Doc(md: "The fixed IP address which will be used to send webhook requests instead of the IP address resolved through DNS"),
+                ),
+                Param(
                     name: "max_connections",
                     ty: Option(u8),
                     descr: Doc(md: "Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput.")
-                ),    
-                   Param(
+                ),
+                Param(
                     name: "allowed_updates",
                     ty: Option(ArrayOf(RawTy("AllowedUpdate"))),
                     descr: Doc(
                         md: "A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See [Update] for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.\n\nPlease note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.",
                         md_links: {"Update":"https://core.telegram.org/bots/api#update"},
                     ),
-                )
+                ),
+                Param(
+                    name: "drop_pending_updates",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_ to drop all pending updates")
+                ),    
             ],
             notes: [
                 (
@@ -135,6 +145,10 @@ Schema(
                     md_links: {"public key certificate":"https://core.telegram.org/bots/self-signed"}
                 ),
                 (md: "Ports currently supported for Webhooks: **443**, **80**, **88**, **8443**."),
+                (
+                    md: "If you're having any trouble setting up webhooks, please check out this [amazing guide to Webhooks].",
+                    md_links: {"amazing guide to Webhooks": "https://core.telegram.org/bots/webhooks"}
+                )
             ]
         ),        
         Method(
@@ -146,7 +160,13 @@ Schema(
             ),
             tg_doc: "https://core.telegram.org/bots/api#deletewebhook",
             tg_category: "Getting updates",
-            params: [],
+            params: [
+                Param(
+                    name: "drop_pending_updates",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_ to drop all pending updates"),
+                )
+            ],
         ),
         Method(
             names: ("getWebhookInfo", "GetWebhookInfo", "get_webhook_info"),
@@ -170,6 +190,22 @@ Schema(
                 md_links: {"User": "https://core.telegram.org/bots/api#user"}
             ),
             tg_doc: "https://core.telegram.org/bots/api#getme",
+            tg_category: "Available methods",
+            params: [],
+        ),
+        Method(
+            names: ("logOut", "LogOut", "log_out"),
+            return_ty: True,
+            doc: Doc(md: "Use this method to log out from the cloud Bot API server before launching the bot locally. You **must** log out the bot before running it locally, otherwise there is no guarantee that the bot will receive updates. After a successful call, you can immediately log in on a local server, but will not be able to log in back to the cloud Bot API server for 10 minutes. Returns _True_ on success. Requires no parameters."),
+            tg_doc: "https://core.telegram.org/bots/api#logout",
+            tg_category: "Available methods",
+            params: [],
+        ),        
+        Method(
+            names: ("close", "Close", "close"),
+            return_ty: True,
+            doc: Doc(md: "Use this method to close the bot instance before moving it from one local server to another. You need to delete the webhook before calling this method to ensure that the bot isn't launched again after server restart. The method will return error 429 in the first 10 minutes after the bot is launched. Returns _True_ on success. Requires no parameters."),
+            tg_doc: "https://core.telegram.org/bots/api#close",
             tg_category: "Available methods",
             params: [],
         ),
@@ -202,6 +238,11 @@ Schema(
                     )
                 ),
                 Param(
+                    name: "entities",
+                    ty: Option(ArrayOf(RawTy("MessageEntity"))),
+                    descr: Doc(md: "List of special entities that appear in the message text, which can be specified instead of _parse\\_mode_"),
+                ),
+                Param(
                     name: "disable_web_page_preview",
                     ty: Option(bool),
                     descr: Doc(md: "Disables link previews for links in this message")
@@ -218,6 +259,11 @@ Schema(
                     name: "reply_to_message_id",
                     ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
                 ),
                 Param(
                     name: "reply_markup",
@@ -268,6 +314,80 @@ Schema(
             ],
         ),
         Method(
+            names: ("copyMessage", "CopyMessage", "copy_message"),
+            return_ty: RawTy("Message"),
+            doc: Doc(
+                md: "Use this method to copy messages of any kind. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the [MessageId] of the sent message on success.",
+                md_links: {"MessageId": "https://core.telegram.org/bots/api#messageid"},
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#copymessage",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)"),
+                ),
+                Param(
+                    name: "from_chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)"),
+                ),
+                Param(
+                    name: "message_id",
+                    ty: i32, 
+                    descr: Doc(md: "Message identifier in the chat specified in _from\\_chat\\_id_")
+                ),
+                Param(
+                    name: "caption",
+                    ty: Option(String),
+                    descr: Doc(md: "New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept"),
+                ),
+                Param(
+                    name: "parse_mode",
+                    ty: Option(RawTy("ParseMode")),
+                    descr: Doc(
+                        md: "Mode for parsing entities in the photo caption. See [formatting options] for more details.",
+                        md_links: {"formatting options": "https://core.telegram.org/bots/api#formatting-options"}
+                    )
+                ),
+                Param(
+                    name: "caption_entities",
+                    ty: Option(ArrayOf(RawTy("MessageEntity"))),
+                    descr: Doc(md: "List of special entities that appear in the new caption, which can be specified instead of _parse\\_mode_"),
+                ),
+                Param(
+                    name: "disable_notification",
+                    ty: Option(bool), 
+                    descr: Doc(
+                        md: "Sends the message [silently]. Users will receive a notification with no sound.",
+                        md_links: {"silently": "https://telegram.org/blog/channels-2-0#silent-messages"}
+                    )
+                ),
+                Param(
+                    name: "reply_to_message_id",
+                    ty: Option(i32),
+                    descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
+                ),
+                Param(
+                    name: "reply_markup",
+                    ty: Option(RawTy("ReplyMarkup")),
+                    descr: Doc(
+                        md: "Additional interface options. A JSON-serialized object for an [inline keyboard], [custom reply keyboard], instructions to remove reply keyboard or to force a reply from the user.",
+                        md_links: {
+                            "inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating",
+                            "custom reply keyboard": "https://core.telegram.org/bots#keyboards",
+                        },
+                    ),
+                ),
+            ],
+        ),
+        Method(
             names: ("sendPhoto", "SendPhoto", "send_photo"),
             return_ty: RawTy("Message"),
             doc: Doc(
@@ -304,6 +424,11 @@ Schema(
                     )
                 ),
                 Param(
+                    name: "caption_entities",
+                    ty: Option(ArrayOf(RawTy("MessageEntity"))),
+                    descr: Doc(md: "List of special entities that appear in the photo caption, which can be specified instead of _parse\\_mode_"),
+                ),
+                Param(
                     name: "disable_notification",
                     ty: Option(bool), 
                     descr: Doc(
@@ -315,6 +440,11 @@ Schema(
                     name: "reply_to_message_id",
                     ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
                 ),
                 Param(
                     name: "reply_markup",
@@ -369,6 +499,11 @@ Schema(
                     ),
                 ),
                 Param(
+                    name: "caption_entities",
+                    ty: Option(ArrayOf(RawTy("MessageEntity"))),
+                    descr: Doc(md: "List of special entities that appear in the photo caption, which can be specified instead of _parse\\_mode_"),
+                ),
+                Param(
                     name: "duration",
                     ty: Option(u32),
                     descr: Doc(md: "Duration of the audio in seconds"),
@@ -403,6 +538,11 @@ Schema(
                     name: "reply_to_message_id",
                     ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
                 ),
                 Param(
                     name: "reply_markup",
@@ -462,6 +602,16 @@ Schema(
                     ),
                 ),
                 Param(
+                    name: "caption_entities",
+                    ty: Option(ArrayOf(RawTy("MessageEntity"))),
+                    descr: Doc(md: "List of special entities that appear in the photo caption, which can be specified instead of _parse\\_mode_"),
+                ),
+                Param(
+                    name: "disable_content_type_detection",
+                    ty: Option(bool),
+                    descr: Doc(md: "Disables automatic server-side content type detection for files uploaded using multipart/form-data."),
+                ),
+                Param(
                     name: "disable_notification",
                     ty: Option(bool), 
                     descr: Doc(
@@ -473,6 +623,11 @@ Schema(
                     name: "reply_to_message_id",
                     ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
                 ),
                 Param(
                     name: "reply_markup",
@@ -550,6 +705,11 @@ Schema(
                     ),
                 ),
                 Param(
+                    name: "caption_entities",
+                    ty: Option(ArrayOf(RawTy("MessageEntity"))),
+                    descr: Doc(md: "List of special entities that appear in the caption, which can be specified instead of _parse\\_mode_"),
+                ),
+                Param(
                     name: "supports_streaming",
                     ty: Option(bool),
                     descr: Doc(md: "Pass _True_, if the uploaded video is suitable for streaming"),
@@ -566,6 +726,11 @@ Schema(
                     name: "reply_to_message_id",
                     ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
                 ),
                 Param(
                     name: "reply_markup",
@@ -641,6 +806,11 @@ Schema(
                     ),
                 ),
                 Param(
+                    name: "caption_entities",
+                    ty: Option(ArrayOf(RawTy("MessageEntity"))),
+                    descr: Doc(md: "List of special entities that appear in the photo caption, which can be specified instead of _parse\\_mode_"),
+                ),
+                Param(
                     name: "disable_notification",
                     ty: Option(bool), 
                     descr: Doc(
@@ -652,6 +822,11 @@ Schema(
                     name: "reply_to_message_id",
                     ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
                 ),
                 Param(
                     name: "reply_markup",
@@ -707,6 +882,11 @@ Schema(
                     ),
                 ),
                 Param(
+                    name: "caption_entities",
+                    ty: Option(ArrayOf(RawTy("MessageEntity"))),
+                    descr: Doc(md: "List of special entities that appear in the photo caption, which can be specified instead of _parse\\_mode_"),
+                ),
+                Param(
                     name: "duration",
                     ty: Option(u32),
                     descr: Doc(md: "Duration of the voice message in seconds"),
@@ -723,6 +903,11 @@ Schema(
                     name: "reply_to_message_id",
                     ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
                 ),
                 Param(
                     name: "reply_markup",
@@ -795,6 +980,11 @@ Schema(
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
+                ),
+                Param(
                     name: "reply_markup",
                     ty: Option(RawTy("ReplyMarkup")),
                     descr: Doc(
@@ -812,8 +1002,8 @@ Schema(
             names: ("sendMediaGroup", "SendMediaGroup", "send_media_group"),
             return_ty: ArrayOf(RawTy("Message")),
             doc: Doc(
-                md: "Use this method to send a group of photos or videos as an album. On success, an array of the sent [Message]s is returned.",
-                md_links: {"Message": "https://core.telegram.org/bots/api#message"},
+                md: "Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of [Messages] that were sent is returned.",
+                md_links: {"Messages": "https://core.telegram.org/bots/api#message"},
             ),
             tg_doc: "https://core.telegram.org/bots/api#sendmediagroup",
             tg_category: "Available methods",
@@ -825,8 +1015,8 @@ Schema(
                 ),
                 Param(
                     name: "media",
-                    ty: ArrayOf(RawTy("InputMedia")), // TODO: InputMediaPhoto | InputMediaVideo
-                    descr: Doc(md: "A JSON-serialized array describing photos and videos to be sent, must include 2-10 items")
+                    ty: ArrayOf(RawTy("InputMedia")),
+                    descr: Doc(md: "A JSON-serialized array describing messages to be sent, must include 2-10 items")
                 ),
                 Param(
                     name: "disable_notification",
@@ -840,6 +1030,11 @@ Schema(
                     name: "reply_to_message_id",
                     ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
                 ),
             ],
         ),
@@ -869,12 +1064,27 @@ Schema(
                     descr: Doc(md: "Longitude of the location"),
                 ),
                 Param(
+                    name: "horizontal_accuracy",
+                    ty: Option(f64),
+                    descr: Doc(md: "The radius of uncertainty for the location, measured in meters; 0-1500"),
+                ),
+                Param(
                     name: "live_period",
                     ty: Option(u32),
                     descr: Doc(
                         md: "Period in seconds for which the location will be updated (see [Live Locations], should be between 60 and 86400.",
                         md_links: {"Live Locations": "https://telegram.org/blog/live-locations"}
                     )
+                ),
+                Param(
+                    name: "heading",
+                    ty: Option(u16), 
+                    descr: Doc(md: "For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.")
+                ),
+                Param(
+                    name: "proximity_alert_radius",
+                    ty: Option(u32), 
+                    descr: Doc(md: "For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.")
                 ),
                 Param(
                     name: "disable_notification",
@@ -888,6 +1098,11 @@ Schema(
                     name: "reply_to_message_id",
                     ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
                 ),
                 Param(
                     name: "reply_markup",
@@ -933,6 +1148,21 @@ Schema(
                     descr: Doc(md: "Longitude of new location"),
                 ),
                 Param(
+                    name: "horizontal_accuracy",
+                    ty: Option(f64),
+                    descr: Doc(md: "The radius of uncertainty for the location, measured in meters; 0-1500"),
+                ),
+                Param(
+                    name: "heading",
+                    ty: Option(u16), 
+                    descr: Doc(md: "For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.")
+                ),
+                Param(
+                    name: "proximity_alert_radius",
+                    ty: Option(u32), 
+                    descr: Doc(md: "For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.")
+                ),
+                Param(
                     name: "reply_markup",
                     ty: Option(RawTy("ReplyMarkup")),
                     descr: Doc(
@@ -970,6 +1200,21 @@ Schema(
                     name: "longitude",
                     ty: f64,
                     descr: Doc(md: "Longitude of new location"),
+                ),
+                Param(
+                    name: "horizontal_accuracy",
+                    ty: Option(f64),
+                    descr: Doc(md: "The radius of uncertainty for the location, measured in meters; 0-1500"),
+                ),
+                Param(
+                    name: "heading",
+                    ty: Option(u16), 
+                    descr: Doc(md: "For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.")
+                ),
+                Param(
+                    name: "proximity_alert_radius",
+                    ty: Option(u32), 
+                    descr: Doc(md: "For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.")
                 ),
                 Param(
                     name: "reply_markup",
@@ -1117,6 +1362,19 @@ Schema(
                     descr: Doc(md: "Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)")
                 ),
                 Param(
+                    name: "google_place_id",
+                    ty: Option(String),
+                    descr: Doc(md: "Google Places identifier of the venue")
+                ),
+                Param(
+                    name: "google_place_type",
+                    ty: Option(String),
+                    descr: Doc(
+                        md: "Google Places type of the venue. (See [supported types].)",
+                        md_links: {"supported types":"https://developers.google.com/places/web-service/supported_types"},
+                    ),
+                ),
+                Param(
                     name: "disable_notification",
                     ty: Option(bool), 
                     descr: Doc(
@@ -1128,6 +1386,11 @@ Schema(
                     name: "reply_to_message_id",
                     ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
                 ),
                 Param(
                     name: "reply_markup",
@@ -1194,6 +1457,11 @@ Schema(
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
+                ),
+                Param(
                     name: "reply_markup",
                     ty: Option(RawTy("ReplyMarkup")),
                     descr: Doc(
@@ -1224,7 +1492,7 @@ Schema(
                 Param(
                     name: "question",
                     ty: String,
-                    descr: Doc(md: "Poll question, 1-255 characters"),
+                    descr: Doc(md: "Poll question, 1-300 characters"),
                 ),
                 Param(
                     name: "options",
@@ -1265,6 +1533,11 @@ Schema(
                     )
                 ),
                 Param(
+                    name: "explanation_entities",
+                    ty: Option(ArrayOf(RawTy("MessageEntity"))),
+                    descr: Doc(md: "List of special entities that appear in the poll explanation, which can be specified instead of _parse\\_mode_"),
+                ),
+                Param(
                     name: "open_period",
                     ty: Option(u16),
                     descr: Doc(md: "Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date.")
@@ -1291,6 +1564,11 @@ Schema(
                     name: "reply_to_message_id",
                     ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
                 ),
                 Param(
                     name: "reply_markup",
@@ -1337,6 +1615,11 @@ Schema(
                     name: "reply_to_message_id",
                     ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
                 ),
                 Param(
                     name: "reply_markup",
@@ -1461,7 +1744,7 @@ Schema(
         Method(
             names: ("unbanChatMember", "UnbanChatMember", "unban_chat_member"),
             return_ty: True,
-            doc: Doc(md: "Use this method to unban a previously kicked user in a supergroup or channel. The user will **not** return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. Returns _True_ on success."),
+            doc: Doc(md: "Use this method to unban a previously kicked user in a supergroup or channel. The user will **not** return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to join it. So if the user is a member of the chat they will also be **removed** from the chat. If you don't want this, use the parameter _only\\_if\\_banned_. Returns _True_ on success."),
             tg_doc: "https://core.telegram.org/bots/api#unbanchatmember",
             tg_category: "Available methods",
             params: [
@@ -1475,6 +1758,11 @@ Schema(
                     ty: i32,
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
+                Param(
+                    name: "only_if_banned",
+                    ty: Option(bool),
+                    descr: Doc(md: "Do nothing if the user is not banned"),
+                )
             ],
         ),
         Method(
@@ -1522,6 +1810,11 @@ Schema(
                     name: "user_id",
                     ty: i32,
                     descr: Doc(md: "Unique identifier of the target user")
+                ),
+                Param(
+                    name: "is_anonymous",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass True, if the administrator's presence in the chat is hidden")
                 ),
                 Param(
                     name: "can_change_info",
@@ -1720,8 +2013,27 @@ Schema(
         Method(
             names: ("unpinChatMessage", "UnpinChatMessage", "unpin_chat_message"),
             return_ty: String,
-            doc: Doc(md: "Use this method to unpin a message in a group, a supergroup, or a channel. The bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in the supergroup or 'can_edit_messages' admin right in the channel. Returns _True_ on success."),
+            doc: Doc(md: "Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in a supergroup or 'can_edit_messages' admin right in a channel. Returns _True_ on success."),
             tg_doc: "https://core.telegram.org/bots/api#unpinchatmessage",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "message_id",
+                    ty: Option(i32),
+                    descr: Doc(md: "Identifier of a message to unpin. If not specified, the most recent pinned message (by sending date) will be unpinned.")
+                ),
+            ],
+        ),
+        Method(
+            names: ("unpinAllChatMessages", "UnpinAllChatMessages", "unpin_all_chat_messages"),
+            return_ty: String,
+            doc: Doc(md: "Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in a supergroup or 'can_edit_messages' admin right in a channel. Returns _True_ on success."),
+            tg_doc: "https://core.telegram.org/bots/api#unpinallchatmessages",
             tg_category: "Available methods",
             params: [
                 Param(
@@ -2008,6 +2320,11 @@ Schema(
                     )
                 ),
                 Param(
+                    name: "entities",
+                    ty: Option(ArrayOf(RawTy("MessageEntity"))),
+                    descr: Doc(md: "List of special entities that appear in message text, which can be specified instead of _parse\\_mode_"),
+                ),
+                Param(
                     name: "disable_web_page_preview",
                     ty: Option(bool),
                     descr: Doc(md: "Disables link previews for links in this message")
@@ -2050,6 +2367,11 @@ Schema(
                         md: "Mode for parsing entities in the message text. See [formatting options] for more details.",
                         md_links: {"formatting options": "https://core.telegram.org/bots/api#formatting-options"}
                     )
+                ),
+                Param(
+                    name: "entities",
+                    ty: Option(ArrayOf(RawTy("MessageEntity"))),
+                    descr: Doc(md: "List of special entities that appear in message text, which can be specified instead of _parse\\_mode_"),
                 ),
                 Param(
                     name: "disable_web_page_preview",
@@ -2098,6 +2420,11 @@ Schema(
                     )
                 ),
                 Param(
+                    name: "caption_entities",
+                    ty: Option(ArrayOf(RawTy("MessageEntity"))),
+                    descr: Doc(md: "List of special entities that appear in the caption, which can be specified instead of _parse\\_mode_"),
+                ),
+                Param(
                     name: "reply_markup",
                     ty: Option(RawTy("InlineKeyboardMarkup")),
                     descr: Doc(
@@ -2133,6 +2460,12 @@ Schema(
                         md_links: {"formatting options": "https://core.telegram.org/bots/api#formatting-options"}
                     )
                 ),
+                Param(
+                    name: "caption_entities",
+                    ty: Option(ArrayOf(RawTy("MessageEntity"))),
+                    descr: Doc(md: "List of special entities that appear in the caption, which can be specified instead of _parse\\_mode_"),
+                ),
+
                 Param(
                     name: "reply_markup",
                     ty: Option(RawTy("InlineKeyboardMarkup")),
@@ -2336,6 +2669,11 @@ Schema(
                     name: "reply_to_message_id",
                     ty: Option(i32),
                     descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
                 ),
                 Param(
                     name: "reply_markup",
@@ -2657,6 +2995,11 @@ Schema(
                     descr: Doc(md: "If the message is a reply, ID of the original message")
                 ),
                 Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
+                ),
+                Param(
                     name: "reply_markup",
                     ty: Option(RawTy("InlineKeyboardMarkup")),
                     descr: Doc(
@@ -2763,6 +3106,32 @@ Schema(
                     name: "game_short_name",
                     ty: String,
                     descr: Doc(md: "Short name of the game, serves as the unique identifier for the game. Set up your games via Botfather."),
+                ),
+                Param(
+                    name: "disable_notification",
+                    ty: Option(bool), 
+                    descr: Doc(
+                        md: "Sends the message [silently]. Users will receive a notification with no sound.",
+                        md_links: {"silently": "https://telegram.org/blog/channels-2-0#silent-messages"}
+                    )
+                ),
+                Param(
+                    name: "reply_to_message_id",
+                    ty: Option(i32),
+                    descr: Doc(md: "If the message is a reply, ID of the original message")
+                ),
+                Param(
+                    name: "allow_sending_without_reply",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the message should be sent even if the specified replied-to message is not found")
+                ),
+                Param(
+                    name: "reply_markup",
+                    ty: Option(RawTy("ReplyMarkup")),
+                    descr: Doc(
+                        md: "A JSON-serialized object for an [inline keyboard]. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game.",
+                        md_links: {"inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating"},
+                    ),
                 ),
             ],
         ),
