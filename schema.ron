@@ -78,7 +78,7 @@ Schema(
                     name: "allowed_updates",
                     ty: Option(ArrayOf(RawTy("AllowedUpdate"))),
                     descr: Doc(
-                        md: "A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See [Update] for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.\n\nPlease note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.",
+                        md: "A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See [Update] for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.\n\nPlease note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.",
                         md_links: {"Update":"https://core.telegram.org/bots/api#update"},
                     ),
                 )
@@ -1002,8 +1002,8 @@ Schema(
             names: ("sendMediaGroup", "SendMediaGroup", "send_media_group"),
             return_ty: ArrayOf(RawTy("Message")),
             doc: Doc(
-                md: "Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of [Messages] that were sent is returned.",
-                md_links: {"Messages": "https://core.telegram.org/bots/api#message"},
+                md: "Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of [Message]s that were sent is returned.",
+                md_links: {"Message": "https://core.telegram.org/bots/api#message"},
             ),
             tg_doc: "https://core.telegram.org/bots/api#sendmediagroup",
             tg_category: "Available methods",
@@ -1601,7 +1601,7 @@ Schema(
                 Param(
                     name: "emoji",
                     ty: Option(RawTy("DiceEmoji")),
-                    descr: Doc(md: "Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, or “🏀”. Dice can have values 1-6 for “🎲” and “🎯”, and values 1-5 for “🏀”. Defaults to “🎲”"),
+                    descr: Doc(md: "Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or “🎰”. Dice can have values 1-6 for “🎲”, “🎯” and “🎳”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲”"),
                 ),
                 Param(
                     name: "disable_notification",
@@ -1679,7 +1679,7 @@ Schema(
             params: [
                 Param(
                     name: "user_id",
-                    ty: i32,
+                    ty: i64,
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
                 Param(
@@ -1731,13 +1731,18 @@ Schema(
                 ),
                 Param(
                     name: "user_id",
-                    ty: i32,
+                    ty: i64,
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
                 Param(
                     name: "until_date",
                     ty: Option(u64),
                     descr: Doc(md: "Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever")
+                ),
+                Param(
+                    name: "revoke_messages",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass True to delete all messages from the chat for the user that is being removed. If False, the user will be able to see messages in the group that were sent before the user was removed. Always True for supergroups and channels.")
                 ),
             ],
         ),
@@ -1755,7 +1760,7 @@ Schema(
                 ),
                 Param(
                     name: "user_id",
-                    ty: i32,
+                    ty: i64,
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
                 Param(
@@ -1779,7 +1784,7 @@ Schema(
                 ),
                 Param(
                     name: "user_id",
-                    ty: i32,
+                    ty: i64,
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
                 Param(
@@ -1808,13 +1813,18 @@ Schema(
                 ),
                 Param(
                     name: "user_id",
-                    ty: i32,
+                    ty: i64,
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
                 Param(
                     name: "is_anonymous",
                     ty: Option(bool),
                     descr: Doc(md: "Pass True, if the administrator's presence in the chat is hidden")
+                ),
+                Param(
+                    name: "can_manage_chat",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege"),
                 ),
                 Param(
                     name: "can_change_info",
@@ -1835,6 +1845,11 @@ Schema(
                     name: "can_delete_messages",
                     ty: Option(bool),
                     descr: Doc(md: "Pass True, if the administrator can delete messages of other users")
+                ),
+                Param(
+                    name: "can_manage_voice_chats",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass True, if the administrator can manage voice chats, supergroups only")
                 ),
                 Param(
                     name: "can_invite_users",
@@ -1872,7 +1887,7 @@ Schema(
                 ),
                 Param(
                     name: "user_id",
-                    ty: i32,
+                    ty: i64,
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
                 Param(
@@ -1912,6 +1927,90 @@ Schema(
                     name: "chat_id",
                     ty: RawTy("ChatId"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+            ],
+        ),        
+        Method(
+            names: ("createChatInviteLink", "CreateChatInviteLink", "create_chat_invite_link"),
+            return_ty: RawTy("ChatInviteLink"),
+            doc: Doc(
+                md: "Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. The link can be revoked using the method [revokeChatInviteLink]. Returns the new invite link as [ChatInviteLink] object.",
+                md_links: {
+                    "revokeChatInviteLink": "https://core.telegram.org/bots/api#revokechatinvitelink",
+                    "ChatInviteLink": "https://core.telegram.org/bots/api#chatinvitelink",
+                }
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#createchatinvitelink",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "expire_date",
+                    ty: Option(i64),
+                    descr: Doc(md: "Point in time (Unix timestamp) when the link will expire")
+                ),
+                Param(
+                    name: "member_limit",
+                    ty: Option(u32),
+                    descr: Doc(md: "Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999")
+                ),
+            ],
+        ),        
+        Method(
+            names: ("editChatInviteLink", "EditChatInviteLink", "edit_chat_invite_link"),
+            return_ty: String,
+            doc: Doc(
+                md: "Use this method to edit a non-primary invite link created by the bot. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the edited invite link as a [ChatInviteLink] object.",
+                md_links: {"ChatInviteLink": "https://core.telegram.org/bots/api#chatinvitelink"}
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#editchatinvitelink",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "invite_link",
+                    ty: String,
+                    descr: Doc(md: "The invite link to edit")
+                ),
+                Param(
+                    name: "expire_date",
+                    ty: Option(i64),
+                    descr: Doc(md: "Point in time (Unix timestamp) when the link will expire")
+                ),
+                Param(
+                    name: "member_limit",
+                    ty: Option(u32),
+                    descr: Doc(md: "Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999")
+                ),
+            ],
+        ),        
+        Method(
+            names: ("revokeChatInviteLink", "RevokeChatInviteLink", "revoke_chat_invite_link"),
+            return_ty: String,
+            doc: Doc(
+                md: "Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the revoked invite link as [ChatInviteLink] object.",
+                md_links: {"ChatInviteLink": "https://core.telegram.org/bots/api#chatinvitelink"}
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#editchatinvitelink",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "invite_link",
+                    ty: String,
+                    descr: Doc(md: "The invite link to revoke")
                 ),
             ],
         ),
@@ -2122,7 +2221,7 @@ Schema(
                 ),
                 Param(
                     name: "user_id",
-                    ty: i32,
+                    ty: i64,
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
             ],
@@ -2711,7 +2810,7 @@ Schema(
             params: [
                 Param(
                     name: "user_id",
-                    ty: i32,
+                    ty: i64,
                     descr: Doc(md: "User identifier of sticker file owner"),
                 ),
                 Param(
@@ -2733,7 +2832,7 @@ Schema(
             params: [
                 Param(
                     name: "user_id",
-                    ty: i32,
+                    ty: i64,
                     descr: Doc(md: "User identifier of sticker file owner"),
                 ),
                 Param(
@@ -2780,7 +2879,7 @@ Schema(
             params: [
                 Param(
                     name: "user_id",
-                    ty: i32,
+                    ty: i64,
                     descr: Doc(md: "User identifier of sticker file owner"),
                 ),
                 Param(
@@ -2855,7 +2954,7 @@ Schema(
                 ),
                 Param(
                     name: "user_id",
-                    ty: i32,
+                    ty: i64,
                     descr: Doc(md: "User identifier of sticker file owner"),
                 ),
                 Param(
@@ -3077,7 +3176,7 @@ Schema(
             params: [
                 Param(
                     name: "user_id",
-                    ty: i32,
+                    ty: i64,
                     descr: Doc(md: "User identifier"),
                 ),
                 Param(
@@ -3147,7 +3246,7 @@ Schema(
             params: [
                 Param(
                     name: "user_id",
-                    ty: u32,
+                    ty: i64,
                     descr: Doc(md: "User identifier"),
                 ),
                 Param(
@@ -3187,7 +3286,7 @@ Schema(
             params: [
                 Param(
                     name: "user_id",
-                    ty: u32,
+                    ty: i64,
                     descr: Doc(md: "User identifier"),
                 ),
                 Param(
@@ -3225,7 +3324,7 @@ Schema(
             params: [
                 Param(
                     name: "user_id",
-                    ty: u32,
+                    ty: i64,
                     descr: Doc(md: "User identifier"),
                 ),
                 Param(
