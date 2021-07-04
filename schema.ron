@@ -2405,7 +2405,7 @@ Schema(
             ],
         ),
         Method(
-            names: ("deleteMyCommands", "deleteMyCommands", "delete_my_commands"),
+            names: ("deleteMyCommands", "DeleteMyCommands", "delete_my_commands"),
             return_ty: True,
             doc: Doc(
                 md: "Use this method to delete the list of the bot's commands for the given scope and user language. After deletion, [higher level commands] will be shown to affected users. Returns _True_ on success.",
