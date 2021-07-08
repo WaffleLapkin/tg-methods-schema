@@ -1506,7 +1506,7 @@ Schema(
                 ),
                 Param(
                     name: "type",
-                    ty: RawTy("PollType"),
+                    ty: Option(RawTy("PollType")),
                     descr: Doc(md: "Poll type, “quiz” or “regular”, defaults to “regular”")
                 ),
                 Param(
