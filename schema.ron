@@ -39,7 +39,7 @@
 //! [github]: https://github.com/WaffleLapkin/tg-methods-schema
 
 Schema(
-    api_version: ApiVersion(ver: "5.3", date: "June 25, 2021"),
+    api_version: ApiVersion(ver: "5.4", date: "November 5, 2021"),
     methods: [
         Method(
             names: ("getUpdates", "GetUpdates", "get_updates"),
@@ -1653,13 +1653,14 @@ Schema(
                     name: "action",
                     ty: RawTy("ChatAction"),
                     descr: Doc(
-                        md: "Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for [text messages], upload_photo for [photos], record_video or upload_video for [videos], record_audio or upload_audio for [audio files], upload_document for [general files], find_location for [location data], record_video_note or upload_video_note for [video notes].",
+                        md: "Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for [text messages], upload_photo for [photos], record_video or upload_video for [videos], record_audio or upload_audio for [audio files], upload_document for [general files], choose_sticker for [stickers], find_location for [location data], record_video_note or upload_video_note for [video notes].",
                         md_links: {
                             "text messages": "https://core.telegram.org/bots/api#sendmessage",
                             "photos": "https://core.telegram.org/bots/api#sendphoto",
                             "videos": "https://core.telegram.org/bots/api#sendvideo",
                             "audio files": "https://core.telegram.org/bots/api#sendaudio",
                             "general files": "https://core.telegram.org/bots/api#senddocument",
+                            "stickers": "https://core.telegram.org/bots/api#sendsticker",
                             "location data": "https://core.telegram.org/bots/api#sendlocation",
                             "video notes": "https://core.telegram.org/bots/api#sendvideonote",
                         }
@@ -1983,6 +1984,11 @@ Schema(
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
+                    name: "name",
+                    ty: Option(String),
+                    descr: Doc(md: "Invite link name; 0-32 characters")
+                ),
+                Param(
                     name: "expire_date",
                     ty: Option(i64),
                     descr: Doc(md: "Point in time (Unix timestamp) when the link will expire")
@@ -1991,6 +1997,11 @@ Schema(
                     name: "member_limit",
                     ty: Option(u32),
                     descr: Doc(md: "Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999")
+                ),
+                Param(
+                    name: "creates_join_request",
+                    ty: Option(bool)    ,
+                    descr: Doc(md: "True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified")
                 ),
             ],
         ),        
@@ -2015,6 +2026,11 @@ Schema(
                     descr: Doc(md: "The invite link to edit")
                 ),
                 Param(
+                    name: "name",
+                    ty: Option(String),
+                    descr: Doc(md: "Invite link name; 0-32 characters")
+                ),
+                Param(
                     name: "expire_date",
                     ty: Option(i64),
                     descr: Doc(md: "Point in time (Unix timestamp) when the link will expire")
@@ -2023,6 +2039,11 @@ Schema(
                     name: "member_limit",
                     ty: Option(u32),
                     descr: Doc(md: "Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999")
+                ),
+                Param(
+                    name: "creates_join_request",
+                    ty: Option(bool)    ,
+                    descr: Doc(md: "True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified")
                 ),
             ],
         ),        
@@ -2045,6 +2066,44 @@ Schema(
                     name: "invite_link",
                     ty: String,
                     descr: Doc(md: "The invite link to revoke")
+                ),
+            ],
+        ),
+        Method(
+            names: ("approveChatJoinRequest", "ApproveChatJoinRequest", "approve_chat_join_request"),
+            return_ty: True,
+            doc: Doc(md: "Use this method to approve a chat join request. The bot must be an administrator in the chat for this to work and must have the _can_invite_users_ administrator right. Returns _True_ on success."),
+            tg_doc: "https://core.telegram.org/bots/api#approvechatjoinrequest",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "user_id",
+                    ty: i64,
+                    descr: Doc(md: "Unique identifier of the target user")
+                ),
+            ],
+        ),
+        Method(
+            names: ("declineChatJoinRequest", "DeclineChatJoinRequest", "decline_chat_join_request"),
+            return_ty: True,
+            doc: Doc(md: "Use this method to decline a chat join request. The bot must be an administrator in the chat for this to work and must have the _can_invite_users_ administrator right. Returns _True_ on success."),
+            tg_doc: "https://core.telegram.org/bots/api#declinechatjoinrequest",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: RawTy("ChatId"),
+                    descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
+                ),
+                Param(
+                    name: "user_id",
+                    ty: i64,
+                    descr: Doc(md: "Unique identifier of the target user")
                 ),
             ],
         ),
