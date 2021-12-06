@@ -315,7 +315,7 @@ Schema(
         ),
         Method(
             names: ("copyMessage", "CopyMessage", "copy_message"),
-            return_ty: RawTy("Message"),
+            return_ty: RawTy("MessageId"),
             doc: Doc(
                 md: "Use this method to copy messages of any kind. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the [MessageId] of the sent message on success.",
                 md_links: {"MessageId": "https://core.telegram.org/bots/api#messageid"},
