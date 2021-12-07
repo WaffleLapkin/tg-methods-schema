@@ -39,7 +39,7 @@
 //! [github]: https://github.com/WaffleLapkin/tg-methods-schema
 
 Schema(
-    api_version: ApiVersion(ver: "5.4", date: "November 5, 2021"),
+    api_version: ApiVersion(ver: "5.5", date: "December 7, 2021"),
     methods: [
         Method(
             names: ("getUpdates", "GetUpdates", "get_updates"),
@@ -1946,12 +1946,12 @@ Schema(
                 ),
                 Param(
                     name: "sender_chat_id",
-                    ty: RawTy("i64"),
+                    ty: i64,
                     descr: Doc(md: "Unique identifier of the target sender chat")
                 ),
                 Param(
                     name: "until_date",
-                    ty: Option(RawTy("i64")),
+                    ty: Option(i64),
                     descr: Doc(md: "Date when the sender chat will be unbanned, unix time. If the chat is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever.")
                 ),
             ],
@@ -1970,7 +1970,7 @@ Schema(
                 ),
                 Param(
                     name: "sender_chat_id",
-                    ty: RawTy("i64"),
+                    ty: i64,
                     descr: Doc(md: "Unique identifier of the target sender chat")
                 ),
             ],
