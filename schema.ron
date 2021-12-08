@@ -1949,11 +1949,6 @@ Schema(
                     ty: i64,
                     descr: Doc(md: "Unique identifier of the target sender chat")
                 ),
-                Param(
-                    name: "until_date",
-                    ty: Option(i64),
-                    descr: Doc(md: "Date when the sender chat will be unbanned, unix time. If the chat is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever.")
-                ),
             ],
         ),        
         Method(
