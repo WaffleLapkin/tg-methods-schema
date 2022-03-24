@@ -15,6 +15,7 @@
 //! * New types:
 //!   + `ChatId` - type of `chat_id` parameter, in the original documentation
 //!     written as `Integer or String
+//!   + `UserId` - type of `user_id` parameters
 //!   + `ChatAction` - type of `action` param in `sendChatAction` method
 //!   + `AllowedUpdate` inner type of `allowed_updates` in `getUpdates` and
 //!     `setWebhook` (so type is `ArrayOf(AllowedUpdate)`)
@@ -221,7 +222,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -290,12 +291,12 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)"),
                 ),
                 Param(
                     name: "from_chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)"),
                 ),
                 Param(
@@ -325,12 +326,12 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)"),
                 ),
                 Param(
                     name: "from_chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)"),
                 ),
                 Param(
@@ -399,7 +400,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -474,7 +475,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)"),
                 ),
                 Param(
@@ -569,7 +570,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)"),
                 ),
                 Param(
@@ -657,7 +658,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)"),
                 ),
                 Param(
@@ -758,7 +759,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)"),
                 ),
                 Param(
@@ -857,7 +858,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)"),
                 ),
                 Param(
@@ -937,7 +938,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)"),
                 ),
                 Param(
@@ -1010,7 +1011,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -1050,7 +1051,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)"),
                 ),
                 Param(
@@ -1129,7 +1130,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -1245,7 +1246,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -1328,7 +1329,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -1417,7 +1418,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -1486,7 +1487,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -1595,7 +1596,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -1646,7 +1647,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -1680,7 +1681,7 @@ Schema(
             params: [
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
                 Param(
@@ -1727,12 +1728,12 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
                 Param(
@@ -1760,12 +1761,12 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
                 Param(
@@ -1790,12 +1791,12 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
                 Param(
@@ -1814,12 +1815,12 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
                 Param(
@@ -1843,12 +1844,12 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
                 Param(
@@ -1917,12 +1918,12 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
                 Param(
@@ -1941,12 +1942,12 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
                     name: "sender_chat_id",
-                    ty: i64,
+                    ty: RawTy("ChatId"),
                     descr: Doc(md: "Unique identifier of the target sender chat")
                 ),
             ],
@@ -1960,12 +1961,12 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
                     name: "sender_chat_id",
-                    ty: i64,
+                    ty: RawTy("ChatId"),
                     descr: Doc(md: "Unique identifier of the target sender chat")
                 ),
             ],
@@ -1979,7 +1980,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -1998,7 +1999,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
             ],
@@ -2018,7 +2019,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -2055,7 +2056,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -2097,7 +2098,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -2116,12 +2117,12 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
             ],
@@ -2135,12 +2136,12 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
             ],
@@ -2154,7 +2155,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -2173,7 +2174,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
             ],
@@ -2187,7 +2188,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -2206,7 +2207,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -2225,7 +2226,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -2249,7 +2250,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -2268,7 +2269,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
             ],
@@ -2282,7 +2283,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
             ],
@@ -2299,7 +2300,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
             ],
@@ -2316,7 +2317,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
             ],
@@ -2330,7 +2331,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
             ],
@@ -2345,7 +2346,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
             ],
@@ -2362,12 +2363,12 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "Unique identifier of the target user")
                 ),
             ],
@@ -2381,7 +2382,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
                 Param(
@@ -2403,7 +2404,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)")
                 ),
             ],
@@ -2586,7 +2587,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`).")
                 ),
                 Param(
@@ -2686,7 +2687,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`).")
                 ),
                 Param(
@@ -2774,7 +2775,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`).")
                 ),
                 Param(
@@ -2835,7 +2836,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`).")
                 ),
                 Param(
@@ -2885,7 +2886,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`).")
                 ),
                 Param(
@@ -2912,7 +2913,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`).")
                 ),
                 Param(
@@ -2934,7 +2935,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target chat or username of the target channel (in the format `@channelusername`).")
                 ),
                 Param(
@@ -2999,7 +3000,7 @@ Schema(
             params: [
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "User identifier of sticker file owner"),
                 ),
                 Param(
@@ -3021,7 +3022,7 @@ Schema(
             params: [
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "User identifier of sticker file owner"),
                 ),
                 Param(
@@ -3068,7 +3069,7 @@ Schema(
             params: [
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "User identifier of sticker file owner"),
                 ),
                 Param(
@@ -3143,7 +3144,7 @@ Schema(
                 ),
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "User identifier of sticker file owner"),
                 ),
                 Param(
@@ -3168,7 +3169,7 @@ Schema(
             params: [
                 Param(
                     name: "chat_id",
-                    ty: RawTy("ChatId"),
+                    ty: RawTy("Recipient"),
                     descr: Doc(md: "Unique identifier for the target private chat"),
                 ),
                 Param(
@@ -3378,7 +3379,7 @@ Schema(
             params: [
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "User identifier"),
                 ),
                 Param(
@@ -3448,7 +3449,7 @@ Schema(
             params: [
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "User identifier"),
                 ),
                 Param(
@@ -3488,7 +3489,7 @@ Schema(
             params: [
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "User identifier"),
                 ),
                 Param(
@@ -3526,7 +3527,7 @@ Schema(
             params: [
                 Param(
                     name: "user_id",
-                    ty: i64,
+                    ty: RawTy("UserId"),
                     descr: Doc(md: "User identifier"),
                 ),
                 Param(
