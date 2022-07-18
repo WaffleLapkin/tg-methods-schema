@@ -40,7 +40,7 @@
 //! [github]: https://github.com/WaffleLapkin/tg-methods-schema
 
 Schema(
-    api_version: ApiVersion(ver: "5.6", date: "December 30, 2021"),
+    api_version: ApiVersion(ver: "6.1", date: "June 20, 2022"),
     methods: [
         Method(
             names: ("getUpdates", "GetUpdates", "get_updates"),
@@ -134,7 +134,12 @@ Schema(
                     name: "drop_pending_updates",
                     ty: Option(bool),
                     descr: Doc(md: "Pass _True_ to drop all pending updates")
-                ),    
+                ),
+                Param(
+                    name: "secret_token",
+                    ty: Option(String),
+                    descr: Doc(md: "A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 characters. Only characters `A-Z`, `a-z`, `0-9`, `_` and `-` are allowed. The header is useful to ensure that the request comes from a webhook set by you."),
+                ),
             ],
             notes: [
                 (
@@ -1958,9 +1963,9 @@ Schema(
                     descr: Doc(md: "Pass True, if the administrator can delete messages of other users")
                 ),
                 Param(
-                    name: "can_manage_voice_chats",
+                    name: "can_manage_video_chats",
                     ty: Option(bool),
-                    descr: Doc(md: "Pass True, if the administrator can manage voice chats, supergroups only")
+                    descr: Doc(md: "Pass True, if the administrator can manage video chats, supergroups only")
                 ),
                 Param(
                     name: "can_invite_users",
@@ -2578,6 +2583,72 @@ Schema(
             ],
         ),
         Method(
+            names: ("setChatMenuButton", "SetChatMenuButton", "set_chat_menu_button"),
+            return_ty: True,
+            doc: Doc(md: "Use this method to change the bot's menu button in a private chat, or the default menu button."),
+            tg_doc: "https://core.telegram.org/bots/api#setchatmenubutton",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: Option(RawTy("ChatId")),
+                    descr: Doc(md: "Unique identifier for the target private chat. If not specified, default bot's menu button will be changed."),
+                ),
+                Param(
+                    name: "menu_button",
+                    ty: Option(RawTy("MenuButton")),
+                    descr: Doc(md: "An object for the new bot's menu button. Defaults to MenuButtonDefault"),
+                )
+            ]
+        ),
+        Method(
+            names: ("getChatMenuButton", "GetChatMenuButton", "get_chat_menu_button"),
+            return_ty: RawTy("MenuButton"),
+            doc: Doc(md: "Use this method to get the current value of the bot's menu button in a private chat, or the default menu button."),
+            tg_doc: "https://core.telegram.org/bots/api#getchatmenubutton",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "chat_id",
+                    ty: Option(RawTy("ChatId")),
+                    descr: Doc(md: "Unique identifier for the target private chat. If not specified, default bot's menu button will be returned"),
+                ),
+            ]
+        ),
+        Method(
+            names: ("setMyDefaultAdministratorRights", "SetMyDefaultAdministratorRights", "set_my_default_administrator_rights"),
+            return_ty: True,
+            doc: Doc(md: "Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are are free to modify the list before adding the bot."),
+            tg_doc: "https://core.telegram.org/bots/api#setmydefaultadministratorrights",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "rights",
+                    ty: Option(RawTy("ChatAdministratorRights")),
+                    descr: Doc(md: "A JSON-serialized object describing new default administrator rights. If not specified, the default administrator rights will be cleared."),
+                ),
+                Param(
+                    name: "for_channels",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_ to change the default administrator rights of the bot in channels. Otherwise, the default administrator rights of the bot for groups and supergroups will be changed."),
+                )
+            ]
+        ),
+        Method(
+            names: ("getMyDefaultAdministratorRights", "GetMyDefaultAdministratorRights", "get_my_default_administrator_rights"),
+            return_ty: RawTy("ChatAdministratorRights"),
+            doc: Doc(md: "Use this method to get the current value of the bot's menu button in a private chat, or the default menu button."),
+            tg_doc: "https://core.telegram.org/bots/api#setmydefaultadministratorrights",
+            tg_category: "Available methods",
+            params: [
+                Param(
+                    name: "for_channels",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_ to get default administrator rights of the bot in channels. Otherwise, default administrator rights of the bot for groups and supergroups will be returned."),
+                )
+            ]
+        ),
+        Method(
             names: ("deleteMyCommands", "DeleteMyCommands", "delete_my_commands"),
             return_ty: True,
             doc: Doc(
@@ -2648,6 +2719,28 @@ Schema(
                     ),
                 ),
             ],
+        ),
+        Method(
+            names: ("answerWebAppQuery", "AnswerWebAppQuery", "answer_web_app_query"),
+            return_ty: RawTy("SentWebAppMessage"),
+            doc: Doc(
+                md: "Use this method to set the result of an interaction with a [Web App] and send a corresponding message on behalf of the user to the chat from which the query originated.", 
+                md_links: {"Web App": "https://core.telegram.org/bots/webapps"}
+            ),
+            tg_doc: "https://core.telegram.org/bots/api#answerwebappquery",
+            tg_category: "Inline Mode",
+            params: [
+                Param(
+                    name: "web_app_query_id",
+                    ty: String,
+                    descr: Doc(md: "Unique identifier for the query to be answered")
+                ),
+                Param(
+                    name :"result",
+                    ty: RawTy("InlineQueryResult"),
+                    descr: Doc(md: "A JSON-serialized object describing the message to be sent"),
+                ),
+            ]
         ),
         Method(
             names: ("editMessageText", "EditMessageText", "edit_message_text"),
@@ -3316,7 +3409,7 @@ Schema(
                 Param(
                     name: "photo_size",
                     ty: Option(String),
-                    descr: Doc(md: "Photo size")
+                    descr: Doc(md: "Photo size in bytes")
                 ),
                 Param(
                     name: "photo_width",
@@ -3393,6 +3486,121 @@ Schema(
                         md: "A JSON-serialized object for an [inline keyboard]. If empty, one 'Pay `total price`' button will be shown. If not empty, the first button must be a Pay button.",
                         md_links: {"inline keyboard": "https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating"}
                     ),
+                ),
+            ],
+        ),
+        Method(
+            names: ("createInvoiceLink", "CreateInvoiceLink", "create_invoice_link"),
+            return_ty: String,
+            doc: Doc(md: "Use this method to create a link for an invoice. Returns the created invoice link as String on success."),
+            tg_doc: "https://core.telegram.org/bots/api#createinvoicelink",
+            tg_category: "Payments",
+            params: [
+                Param(
+                    name: "title",
+                    ty: String,
+                    descr: Doc(md: "Product name, 1-32 characters"),
+                ),
+                Param(
+                    name: "description",
+                    ty: String,
+                    descr: Doc(md: "Product description, 1-255 characters"),
+                ),
+                Param(
+                    name: "payload",
+                    ty: String,
+                    descr: Doc(md: "Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes."),
+                ),
+                Param(
+                    name: "provider_token",
+                    ty: String,
+                    descr: Doc(
+                        md: "Payments provider token, obtained via [Botfather]",
+                        md_links: {"Botfather":"https://t.me/botfather"}    
+                    ),
+                ),
+                Param(
+                    name: "currency",
+                    ty: String,
+                    descr: Doc(md: "Three-letter ISO 4217 currency code, see more on currencies"),
+                ),
+                Param(
+                    name: "prices",
+                    ty: ArrayOf(RawTy("LabeledPrice")),
+                    descr: Doc(md: "Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)"),
+                ),
+                Param(
+                    name: "max_tip_amount",
+                    ty: Option(u32),
+                    descr: Doc(
+                        md: "The maximum accepted amount for tips in the smallest units of the currency (integer, **not** float/double). For example, for a maximum tip of `US$ 1.45` pass `max_tip_amount = 145`. See the exp parameter in [`currencies.json`], it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0",
+                        md_links: {"`currencies.json`":"https://core.telegram.org/bots/payments/currencies.json"}
+                    ),
+                ),
+                Param(
+                    name: "suggested_tip_amounts",
+                    ty: Option(ArrayOf(u32)),
+                    descr: Doc(md: "A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, **not** float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed _max_tip_amount_."),
+                ),
+                Param(
+                    name: "provider_data",
+                    ty: Option(String),
+                    descr: Doc(md: "A JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.")
+                ),
+                Param(
+                    name: "photo_url",
+                    ty: Option(String),
+                    descr: Doc(md: "URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.")
+                ),
+                Param(
+                    name: "photo_size",
+                    ty: Option(String),
+                    descr: Doc(md: "Photo size in bytes")
+                ),
+                Param(
+                    name: "photo_width",
+                    ty: Option(String),
+                    descr: Doc(md: "Photo width")
+                ),
+                Param(
+                    name: "photo_height",
+                    ty: Option(String),
+                    descr: Doc(md: "Photo height")
+                ),
+                Param(
+                    name: "need_name",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if you require the user's full name to complete the order")
+                ),
+                Param(
+                    name: "need_phone_number",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if you require the user's phone number to complete the order")
+                ),
+                Param(
+                    name: "need_email",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if you require the user's email address to complete the order")
+                ),
+                Param(
+                    name: "need_shipping_address",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if you require the user's shipping address to complete the order")
+                ),
+                Param(
+                    name: "send_phone_number_to_provider",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if user's phone number should be sent to provider")
+                ),
+                Param(
+                    name: "send_email_to_provider",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if user's email address should be sent to provider")
+                ),
+                Param(
+                    name: "is_flexible",
+                    ty: Option(bool),
+                    descr: Doc(md: "Pass _True_, if the final price depends on the shipping method")
                 ),
             ],
         ),
