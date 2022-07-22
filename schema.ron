@@ -3166,7 +3166,7 @@ Schema(
         ),
         Method(
             names: ("uploadStickerFile", "UploadStickerFile", "upload_sticker_file"),
-            return_ty: RawTy("File"),
+            return_ty: RawTy("FileMeta"),
             doc: Doc(md: "Use this method to upload a .PNG file with a sticker for later use in _createNewStickerSet_ and _addStickerToSet_ methods (can be used multiple times). Returns the uploaded File on success."),
             tg_doc: "https://core.telegram.org/bots/api#uploadstickerfile",
             tg_category: "Stickers",
